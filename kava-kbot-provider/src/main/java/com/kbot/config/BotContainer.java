@@ -1,0 +1,63 @@
+package com.kbot.config;
+
+import com.kbot.command.BaseCommand;
+import com.kbot.command.everywhere.EverywhereCommand;
+import com.kbot.command.friend.FriendCommand;
+import com.kbot.command.group.GroupCommand;
+import com.kbot.command.grouptempmessage.GroupTempMessageCommand;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Program Name: kava-kbot
+ * <p>
+ * Description: 容器初始配置
+ * <p>
+ * Created by kris on 2021/3/23
+ *
+ * @author kris
+ */
+@Slf4j
+@Data
+public class BotContainer {
+
+    /**
+     * 保存对象最后的一句话
+     */
+    private Map<Integer,String> groupLastMsg;
+
+    /**
+     * everywhereCommand
+     */
+    private Map<String, EverywhereCommand> everywhereCommands;
+
+    /**
+     * friendCommand
+     */
+    private Map<String, FriendCommand> friendCommands;
+
+    /**
+     * groupCommand
+     */
+    private Map<String, GroupCommand> groupCommands;
+
+    /**
+     * groupTempMessageCommand
+     */
+    private Map<String, GroupTempMessageCommand> groupTempMessageCommands;
+
+    /**
+     * 命令头集合
+     */
+    private Set<String> commandHead;
+
+    /**
+     * 黑名单集合
+     */
+    private List<Long> blackList;
+
+}
