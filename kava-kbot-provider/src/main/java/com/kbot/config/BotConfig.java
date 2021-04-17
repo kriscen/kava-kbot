@@ -3,10 +3,12 @@ package com.kbot.config;
 import com.kbot.entity.KrisBot;
 import com.kbot.event.GroupEvents;
 import com.kbot.event.MessageEvents;
+import kotlin.jvm.functions.Function1;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
 import net.mamoe.mirai.utils.BotConfiguration;
+import net.mamoe.mirai.utils.DeviceInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +41,9 @@ public class BotConfig {
                 fileBasedDeviceInfo(botProperties.getDeviceInfoPath());
                 setProtocol(MiraiProtocol.ANDROID_PHONE);
             }});
-            log.info("deviceInfo.."+bot.getConfiguration().getDeviceInfo().toString());
+            Function1<Bot, DeviceInfo> deviceInfo = bot.getConfiguration().getDeviceInfo();
+            DeviceInfo info = deviceInfo.invoke(bot);
+            log.info("deviceInfo.."+info.getImei());
             bot.login();
             return bot;
         }else{

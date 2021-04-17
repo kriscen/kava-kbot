@@ -3,6 +3,7 @@ package com.kot;
 import com.kbot.KbotApplication;
 import com.kbot.command.BaseCommand;
 import com.kbot.command.everywhere.EverywhereCommand;
+import com.kbot.config.BotContainer;
 import com.kbot.entity.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.utils.SpringContextUtil;
@@ -23,6 +24,9 @@ public class BeanInitTest {
     @Autowired
     private CommandHandleService commandHandleService;
 
+    @Autowired
+    private BotContainer botContainer;
+
     @Test
     public void BeanInitTest(){
         ApplicationContext context = SpringContextUtil.getApplicationContext();
@@ -39,7 +43,8 @@ public class BeanInitTest {
 
     @Test
     public void commandTest(){
-        String msg = "ue十连";
-        System.out.println(commandHandleService.getContent(msg));
+        String msg = ".cf";
+        Map<String, EverywhereCommand> everywhereCommands = botContainer.getEverywhereCommands();
+        System.out.println(commandHandleService.getCommand(msg,everywhereCommands));
     }
 }

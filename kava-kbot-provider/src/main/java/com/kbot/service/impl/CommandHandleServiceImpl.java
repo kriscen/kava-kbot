@@ -33,7 +33,7 @@ public class CommandHandleServiceImpl implements CommandHandleService {
 
     @Override
     public BaseCommand getCommand(String msg, Map<String, ? extends BaseCommand> commandContainer) {
-        return commandContainer.get(getCommandHead(msg));
+        return commandContainer.get(getContent(msg));
     }
 
     @Override

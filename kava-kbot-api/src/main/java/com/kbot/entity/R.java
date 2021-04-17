@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @author kris
  */
 @Data
-public class Result<T> implements Serializable {
+public class R<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -44,18 +44,18 @@ public class Result<T> implements Serializable {
 	 */
 	private long timestamp = System.currentTimeMillis();
 
-	public Result() {
+	public R() {
 		
 	}
 	
-	public Result<T> error500(String message) {
+	public R<T> error500(String message) {
 		this.message = message;
 		this.code = CommonConstant.SC_INTERNAL_SERVER_ERROR_500;
 		this.success = false;
 		return this;
 	}
 	
-	public Result<T> success(String message) {
+	public R<T> success(String message) {
 		this.message = message;
 		this.code = CommonConstant.SC_OK_200;
 		this.success = true;
@@ -63,36 +63,36 @@ public class Result<T> implements Serializable {
 	}
 	
 	
-	public static Result<Object> ok() {
-		Result<Object> r = new Result<Object>();
+	public static R<Object> ok() {
+		R<Object> r = new R<>();
 		r.setSuccess(true);
 		r.setCode(CommonConstant.SC_OK_200);
 		r.setMessage("成功");
 		return r;
 	}
 	
-	public static Result<Object> ok(String msg) {
-		Result<Object> r = new Result<Object>();
+	public static R<Object> ok(String msg) {
+		R<Object> r = new R<>();
 		r.setSuccess(true);
 		r.setCode(CommonConstant.SC_OK_200);
 		r.setMessage(msg);
 		return r;
 	}
 	
-	public static Result<Object> ok(Object data) {
-		Result<Object> r = new Result<Object>();
+	public static R<Object> ok(Object data) {
+		R<Object> r = new R<>();
 		r.setSuccess(true);
 		r.setCode(CommonConstant.SC_OK_200);
 		r.setResult(data);
 		return r;
 	}
 	
-	public static Result<Object> error(String msg) {
+	public static R<Object> error(String msg) {
 		return error(CommonConstant.SC_INTERNAL_SERVER_ERROR_500, msg);
 	}
 	
-	public static Result<Object> error(int code, String msg) {
-		Result<Object> r = new Result<Object>();
+	public static R<Object> error(int code, String msg) {
+		R<Object> r = new R<>();
 		r.setCode(code);
 		r.setMessage(msg);
 		r.setSuccess(false);

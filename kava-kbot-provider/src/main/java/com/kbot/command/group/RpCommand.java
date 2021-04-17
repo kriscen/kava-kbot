@@ -46,7 +46,6 @@ public class RpCommand implements GroupCommand {
         //获取群员Q号
         Long groupUserId = member.getId();
         String groupUserName = member.getNameCard();
-
         //rp
         int rollNum = 0;
         if (MAP_RP.containsKey(groupUserId)) {

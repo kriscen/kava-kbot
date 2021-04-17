@@ -4,6 +4,7 @@ package com.kbot.runner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.kbot.command.BaseCommand;
 import com.kbot.command.everywhere.EverywhereCommand;
 import com.kbot.command.friend.FriendCommand;
 import com.kbot.command.group.GroupCommand;
@@ -70,8 +71,9 @@ public class ContainerInitRunner implements ApplicationRunner {
     private Map<String, EverywhereCommand> getEverywhereCommand(){
         ApplicationContext context = SpringContextUtil.getApplicationContext();
         Map<String, EverywhereCommand> commandMap = context.getBeansOfType(EverywhereCommand.class);
+        log.info("EverywhereCommand....{}个",commandMap.size());
         Map<String, EverywhereCommand> map = new HashMap<>(4);
-        if(commandMap == null || !commandMap.isEmpty()){
+        if(commandMap == null || commandMap.isEmpty()){
             return map;
         }
         commandMap.forEach((key, c) -> {
@@ -85,8 +87,9 @@ public class ContainerInitRunner implements ApplicationRunner {
     private Map<String, FriendCommand> getFriendCommand(){
         ApplicationContext context = SpringContextUtil.getApplicationContext();
         Map<String, FriendCommand> commandMap = context.getBeansOfType(FriendCommand.class);
+        log.info("FriendCommand....{}个",commandMap.size());
         Map<String, FriendCommand> map = new HashMap<>(4);
-        if(commandMap == null || !commandMap.isEmpty()){
+        if(commandMap == null || commandMap.isEmpty()){
             return map;
         }
         commandMap.forEach((key, c) -> {
@@ -100,8 +103,9 @@ public class ContainerInitRunner implements ApplicationRunner {
     private Map<String, GroupCommand> getGroupCommand(){
         ApplicationContext context = SpringContextUtil.getApplicationContext();
         Map<String, GroupCommand> commandMap = context.getBeansOfType(GroupCommand.class);
+        log.info("GroupCommand....{}个",commandMap.size());
         Map<String, GroupCommand> map = new HashMap<>(4);
-        if(commandMap == null || !commandMap.isEmpty()){
+        if(commandMap == null || commandMap.isEmpty()){
             return map;
         }
         commandMap.forEach((key, c) -> {
@@ -115,8 +119,9 @@ public class ContainerInitRunner implements ApplicationRunner {
     private Map<String, GroupTempMessageCommand> getGroupTempMessageCommand(){
         ApplicationContext context = SpringContextUtil.getApplicationContext();
         Map<String, GroupTempMessageCommand> commandMap = context.getBeansOfType(GroupTempMessageCommand.class);
+        log.info("GroupTempMessageCommand....{}个",commandMap.size());
         Map<String, GroupTempMessageCommand> map = new HashMap<>(4);
-        if(commandMap == null || !commandMap.isEmpty()){
+        if(commandMap == null || commandMap.isEmpty()){
             return map;
         }
         commandMap.forEach((key, c) -> {

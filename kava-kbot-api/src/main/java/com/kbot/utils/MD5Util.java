@@ -14,21 +14,22 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5Util {
 
-    public static String createID(String key){
-        key = String.valueOf(System.currentTimeMillis()) + key;
-        StringBuffer buf = null;
+    public static String createId(String key){
+        key = System.currentTimeMillis() + key;
+        StringBuilder buf = new StringBuilder("");
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(key.getBytes());
-            byte b[] = md.digest();
+            byte[] b = md.digest();
             int i;
-            buf = new StringBuffer("");
-            for (int offset = 0; offset < b.length; offset++) {
-                i = b[offset];
-                if (i < 0)
+            for (byte value : b) {
+                i = value;
+                if (i < 0) {
                     i += 256;
-                if (i < 16)
+                }
+                if (i < 16) {
                     buf.append("0");
+                }
                 buf.append(Integer.toHexString(i));
             }
         } catch (NoSuchAlgorithmException e) {
@@ -39,10 +40,6 @@ public class MD5Util {
         //         32位的加密
         //return buf.toString());// 
 
-    }
-
-    public static void main(String[] args) throws Exception {
-        System.out.println(MD5Util.createID("kbot"));
     }
 
 }
