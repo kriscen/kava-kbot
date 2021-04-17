@@ -1,6 +1,7 @@
-package com.kbot.command.group;
+package com.kbot.command.friend;
 
 
+import com.kbot.command.group.GroupCommand;
 import com.kbot.entity.CommandProperties;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Contact;
@@ -28,7 +29,7 @@ import java.util.Map;
  * @author kris
  */
 @Service
-public class RpCommand implements GroupCommand {
+public class RpCommand implements FriendCommand {
     public static Map<Long, Integer> MAP_RP = new HashMap<>();
 
     @Override
@@ -58,7 +59,8 @@ public class RpCommand implements GroupCommand {
         //可以随机点装饰性语句
         String msgEx = getMsgEx(rollNum);
         String resultStr = String.format("【%s】今天的人品值：%s%s", groupUserName, rollNum, msgEx);
-        return new PlainText(resultStr);    }
+        return new PlainText(resultStr);
+    }
 
 
     private String getMsgEx(int rollNum) {

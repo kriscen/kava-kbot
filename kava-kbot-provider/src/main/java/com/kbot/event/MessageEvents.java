@@ -133,7 +133,6 @@ public class MessageEvents extends SimpleListenerHost {
             return ListeningStatus.LISTENING;
         }
         GroupCommand command = (GroupCommand) commandHandleService.getCommand(oriMsg, botContainer.getGroupCommands());
-
         if (command == null) {
             return ListeningStatus.LISTENING;
         }

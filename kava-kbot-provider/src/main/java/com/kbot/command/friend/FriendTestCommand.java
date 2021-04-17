@@ -1,15 +1,19 @@
 package com.kbot.command.friend;
 
 import com.kbot.entity.CommandProperties;
+import com.kbot.service.CommandHandleService;
+import com.kbot.service.ImageService;
+import com.kbot.utils.FileUtil;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.contact.User;
-import net.mamoe.mirai.message.data.Image;
-import net.mamoe.mirai.message.data.Message;
-import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.*;
 import net.mamoe.mirai.utils.ExternalResource;
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.File;
 import java.util.Arrays;
 
 /**
@@ -21,15 +25,21 @@ import java.util.Arrays;
  *
  * @author kris
  */
+@Service
 public class FriendTestCommand implements FriendCommand {
     private final String VERSION = "version";
     private final String STRING_MODE = "mode1";
     private final String IMAGE_MODE = "mode2";
 
+    @Autowired
+    private ImageService imageService;
+    @Autowired
+    private CommandHandleService commandHandleService;
+
     @Override
     public CommandProperties properties() {
         return CommandProperties.builder()
-                .name("测试模式")
+                .name("测试")
                 .type(1)
                 .alias(Arrays.asList(VERSION,STRING_MODE,IMAGE_MODE))
                 .build();
@@ -38,15 +48,37 @@ public class FriendTestCommand implements FriendCommand {
     @Override
     public Message execute(User sender, String args, MessageChain messageChain, Contact subject) {
         Friend friend = (Friend) sender;
-        String string = messageChain.toString();
-
-
-        return null;
+        switch(commandHandleService.getContent(args)){
+            case VERSION:
+                return MessageUtils.newChain()
+                        .plus("1.0-kava.start-SNAPSHOT");
+            case STRING_MODE:
+                return testString(friend);
+            case IMAGE_MODE:
+                return imageMode(friend);
+            default:
+                break;
+        }
+        return new MessageChainBuilder()
+                .append("暂无指令")
+                .build();
     }
 
+    private Message testString(Friend friend){
+        /*MessageChain chain = new MessageChainBuilder()
+                .append(new PlainText("hello"))
+                // 会被构造成 PlainText 再添加, 相当于上一行
+                .append("word")
+                .append(new At(friend.getId()))
+                .build();*/
+        return MessageUtils.newChain()
+                .plus(new PlainText("hello"))
+                .plus("word")
+                .plus(new At(friend.getId()));
+    }
 
-
-    private Image imageMode(){
-        return ExternalResource.uploadAsImage((File) null,null);
+    private Image imageMode(Friend friend){
+        String path = FileUtil.getResourcePath() +  "static/image/ue.jpg";
+        return imageService.sendImage4Local(friend,path);
     }
 }
