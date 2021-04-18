@@ -75,7 +75,7 @@ public class FriendTestCommand implements EverywhereCommand {
     }
 
     private Image imageMode(Friend friend){
-        String path = FileUtil.getResourcePath() +  "static/image/ue.jpg";
+        String path = FileUtil.getFilePath("static/image/ue.jpg");
         return imageService.sendImage4Local(friend,path);
     }
 }

@@ -1,6 +1,7 @@
 package com.kbot.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
@@ -19,18 +20,15 @@ import java.util.Random;
 @Slf4j
 public class FileUtil {
 
-    public static String getResourcePath(){
+    public static String getFilePath(String filePath){
+        ClassPathResource classPathResource = new ClassPathResource(filePath);
         String path = null;
         try {
-            path = ResourceUtils.getURL("classpath:").getPath();
-        } catch (FileNotFoundException e) {
-            log.error("classpath not find",e);
+            path = classPathResource.getFile().getPath();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return path;
-    }
-
-    public static String getFilePath(String filePath){
-        return getResourcePath() + filePath;
     }
 
     /**
