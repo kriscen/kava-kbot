@@ -164,9 +164,9 @@ public class GachaCommand implements GroupCommand {
         }
         StringBuilder sb = new StringBuilder();
         if(upResult.isEmpty()){
-            sb.append("没有抽到up角色。");
+            sb.append("没有抽到up角色。").append("\n");
         }else{
-            sb.append(String.format("在第%d抽抽到up角色。",fistUp));
+            sb.append(String.format("在第%d抽抽到up角色。",fistUp)).append("\n");
             formatStar3(upResult, sb);
             if (star3Result.isEmpty()){
                 sb.append("连三星都没有抽到。");
