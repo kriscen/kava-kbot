@@ -88,8 +88,15 @@ public class GachaCommand implements GroupCommand {
      */
     private Message gachaSingle(User sender){
         PrincessDto dto = gachaPrincess();
+        StringBuilder sb = new StringBuilder();
+        sb.append(dto.getName());
+        sb.append("(");
+        for (int j = 0; j < dto.getPrincessStar().getStarNUm(); j++) {
+            sb.append("✩");
+        }
+        sb.append(")");
         return MessageUtils.newChain()
-                .plus(new PlainText(dto.getName()))
+                .plus(new PlainText(sb))
                 .plus(new At(sender.getId()));
     }
 
@@ -122,7 +129,6 @@ public class GachaCommand implements GroupCommand {
         }
         return MessageUtils.newChain().plus(sb.toString()).plus(new At(sender.getId()));
     }
-
 
     /**
      * 一井

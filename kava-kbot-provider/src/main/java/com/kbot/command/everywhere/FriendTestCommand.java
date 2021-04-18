@@ -1,4 +1,4 @@
-package com.kbot.command.friend;
+package com.kbot.command.everywhere;
 
 import com.kbot.entity.CommandProperties;
 import com.kbot.service.CommandHandleService;
@@ -8,12 +8,9 @@ import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.*;
-import net.mamoe.mirai.utils.ExternalResource;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.Arrays;
 
 /**
@@ -26,7 +23,7 @@ import java.util.Arrays;
  * @author kris
  */
 @Service
-public class FriendTestCommand implements FriendCommand {
+public class FriendTestCommand implements EverywhereCommand {
     private final String VERSION = "version";
     private final String STRING_MODE = "mode1";
     private final String IMAGE_MODE = "mode2";

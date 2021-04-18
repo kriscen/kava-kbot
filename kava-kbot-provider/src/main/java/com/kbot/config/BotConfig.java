@@ -3,6 +3,7 @@ package com.kbot.config;
 import com.kbot.entity.KrisBot;
 import com.kbot.event.GroupEvents;
 import com.kbot.event.MessageEvents;
+import com.kbot.utils.FileUtil;
 import kotlin.jvm.functions.Function1;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.Bot;
@@ -38,7 +39,7 @@ public class BotConfig {
             log.info("mirai bot初始化.......");
             Bot bot = BotFactory.INSTANCE.newBot(botProperties.getQq(), botProperties.getPassword(), new BotConfiguration() {{
                 // 配置，例如：
-                fileBasedDeviceInfo(botProperties.getDeviceInfoPath());
+                fileBasedDeviceInfo(FileUtil.getFilePath(botProperties.getDeviceInfoPath()));
                 setProtocol(MiraiProtocol.ANDROID_PHONE);
             }});
             Function1<Bot, DeviceInfo> deviceInfo = bot.getConfiguration().getDeviceInfo();

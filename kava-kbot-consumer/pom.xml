@@ -12,6 +12,9 @@
     <artifactId>kava-kbot-consumer</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <start-class>com.kbot.KbotApplication</start-class>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -21,4 +24,24 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.5.RELEASE</version>
+                <configuration>
+                    <mainClass>${start-class}</mainClass>
+                    <layout>JAR</layout>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
