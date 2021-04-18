@@ -61,6 +61,11 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public Image sendImage4Local(User sender, File file) {
+        return sender.uploadImage(ExternalResource.create(file));
+    }
+
+    @Override
     public void downloadImage(String url, String path) {
         CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpGet get = new HttpGet(url);

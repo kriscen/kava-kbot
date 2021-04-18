@@ -3,6 +3,8 @@ package com.kbot.service;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Image;
 
+import java.io.File;
+
 /**
  * Program Name: kava-kbot
  * <p>
@@ -29,6 +31,14 @@ public interface ImageService {
      * @return image
      */
     Image sendImage4Local(User sender,String path);
+
+    /**
+     * 从本地发送图片
+     * @param sender 用于转换图片
+     * @param file 本地路径
+     * @return image
+     */
+    Image sendImage4Local(User sender, File file);
 
     /**
      * 将网络图片下载到本地

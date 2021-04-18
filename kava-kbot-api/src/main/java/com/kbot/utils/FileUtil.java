@@ -5,6 +5,7 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 
 /**
  * Program Name: kava-kbot
@@ -26,6 +27,10 @@ public class FileUtil {
             log.error("classpath not find",e);
         }
         return path;
+    }
+
+    public static String getFilePath(String filePath){
+        return getResourcePath() + filePath;
     }
 
     /**
@@ -53,4 +58,34 @@ public class FileUtil {
             return null;
         }
     }
+
+    /**
+     * 从文件夹中随机一个文件
+     * @param filePath 文件夹地址
+     * @param Index 文件夹中第几个文件
+     * @return file
+     */
+    public static File randomFile(String filePath,int Index) {
+        File folder = new File(filePath);
+        if(!folder.exists()){
+            return null;
+        }
+        File[] files = folder.listFiles();
+        return files[Index];
+    }
+
+    /**
+     * 文件夹中文件数量
+     * @param filePath 文件夹地址
+     * @return num
+     */
+    public static int fileCount(String filePath) {
+        File folder = new File(filePath);
+        if(!folder.exists()){
+            return 0;
+        }
+        return folder.listFiles().length;
+    }
+
+
 }

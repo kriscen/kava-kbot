@@ -22,8 +22,8 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 public class PcrBeanConfig {
-    private final String MAX_CARD_POOL_PATH = FileUtil.getResourcePath() + "static/files/pcr/cardpool/maxcardpool.json";
-    private final String BL_CARD_POOL_PATH = FileUtil.getResourcePath() + "static/files/pcr/cardpool/blcardpool.json";
+    private final String MAX_CARD_POOL_PATH = "static/files/pcr/cardpool/maxcardpool.json";
+    private final String BL_CARD_POOL_PATH = "static/files/pcr/cardpool/blcardpool.json";
 
     @Autowired
     private Bot bot;
@@ -33,7 +33,7 @@ public class PcrBeanConfig {
         if(bot instanceof KrisBot){
             return CardPool.builder().comment("maxCardPool").build();
         }else{
-            String jsonStr = FileUtil.readJsonFile(MAX_CARD_POOL_PATH);
+            String jsonStr = FileUtil.readJsonFile(FileUtil.getFilePath(MAX_CARD_POOL_PATH));
             return JSON.parseObject(jsonStr, CardPool.class);
         }
     }
@@ -42,7 +42,7 @@ public class PcrBeanConfig {
         if(bot instanceof KrisBot){
             return CardPool.builder().comment("blCardPool").build();
         }else{
-            String jsonStr = FileUtil.readJsonFile(BL_CARD_POOL_PATH);
+            String jsonStr = FileUtil.readJsonFile(FileUtil.getFilePath(BL_CARD_POOL_PATH));
             return JSON.parseObject(jsonStr, CardPool.class);
         }
     }

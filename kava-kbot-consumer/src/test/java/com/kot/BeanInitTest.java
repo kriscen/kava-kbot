@@ -47,4 +47,9 @@ public class BeanInitTest {
         Map<String, EverywhereCommand> everywhereCommands = botContainer.getEverywhereCommands();
         System.out.println(commandHandleService.getCommand(msg,everywhereCommands));
     }
+    @Test
+    public void textTest(){
+        int size = botContainer.getCatrotTextList().size();
+        System.out.println(size);
+    }
 }

@@ -2,6 +2,7 @@ package com.kbot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * Program Name:kava-kbot
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author kris
  */
 @SpringBootApplication
+@EnableScheduling
 public class KbotApplication {
 
     public static void main(String[] args){

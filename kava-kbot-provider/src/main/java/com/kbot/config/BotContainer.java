@@ -5,6 +5,7 @@ import com.kbot.command.everywhere.EverywhereCommand;
 import com.kbot.command.friend.FriendCommand;
 import com.kbot.command.group.GroupCommand;
 import com.kbot.command.grouptempmessage.GroupTempMessageCommand;
+import com.kbot.entity.tarot.TarotInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,5 +60,19 @@ public class BotContainer {
      * 黑名单集合
      */
     private List<Long> blackList;
+
+    /**
+     * 猫罗牌文本
+     */
+    private List<TarotInfo> catrotTextList;
+
+    /**
+     * 每日猫罗牌
+     */
+    private Map<Long,TarotInfo> catrotList;
+    /**
+     * 每日运势
+     */
+    private Map<Long,Integer> fortuneList;
 
 }

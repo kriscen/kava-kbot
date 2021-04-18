@@ -55,7 +55,7 @@ public class GachaCommand implements GroupCommand {
         alias.addAll(NESS);
         alias.addAll(WELL);
         return CommandProperties.builder()
-                .name("扭蛋")
+                .name("gacha")
                 .type(1)
                 .alias(alias)
                 .build();
