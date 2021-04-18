@@ -1,5 +1,6 @@
 package com.kbot.dto.pcr;
 
+import com.kbot.constant.pcr.PrincessStar;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -28,5 +29,5 @@ public class PrincessDto {
     /**
      * 星数
      */
-    private Integer startNum;
+    private PrincessStar princessStar;
 }
