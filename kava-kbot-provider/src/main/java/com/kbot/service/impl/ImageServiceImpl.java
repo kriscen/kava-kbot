@@ -12,10 +12,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Program Name: kava-kbot
@@ -63,6 +60,21 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Image sendImage4Local(User sender, File file) {
         return sender.uploadImage(ExternalResource.create(file));
+    }
+
+    @Override
+    public Image sendImage4Local(User sender, InputStream is) {
+        Image image = null;
+        try {
+            image = sender.uploadImage(ExternalResource.create(is));
+        } catch (IOException e) {
+        }finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+            }
+        }
+        return image;
     }
 
     @Override

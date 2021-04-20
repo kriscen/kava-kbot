@@ -52,6 +52,9 @@ public class BotConfig {
             return new KrisBot();
         }
     }
+    private void checkDeviceInfo(){
+
+    }
 
     @Bean
     public MessageEvents messageEvents(){

@@ -25,6 +25,32 @@
     </dependencies>
 
     <build>
+        <!-- 定义包含这些资源文件，能在jar包中获取这些文件 -->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.json</include>
+                    <include>**/*.text</include>
+                    <include>**/*.txt</include>
+                    <include>**/*.jpg</include>
+                    <include>**/*.png</include>
+                </includes>
+                <!--是否替换资源中的属性-->
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <!--是否替换资源中的属性-->
+                <filtering>false</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

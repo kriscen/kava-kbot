@@ -31,6 +31,17 @@ public class FileUtil {
         return path;
     }
 
+    public static InputStream getFileStream(String filePath){
+        ClassPathResource classPathResource = new ClassPathResource(filePath);
+        InputStream inputStream = null;
+        try {
+            inputStream = classPathResource.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inputStream;
+    }
+
     /**
      * 读取json文件
      * @param fileName path+fileName
