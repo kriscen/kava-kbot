@@ -1,6 +1,7 @@
 package com.kbot.config;
 
 import com.alibaba.fastjson.JSON;
+import com.kbot.constant.FilePathConstant;
 import com.kbot.entity.KrisBot;
 import com.kbot.entity.pcr.CardPool;
 import com.kbot.utils.FileUtil;
@@ -22,8 +23,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 public class PcrBeanConfig {
-    private final String MAX_CARD_POOL_PATH = "static/files/pcr/cardpool/maxcardpool.json";
-    private final String BL_CARD_POOL_PATH = "static/files/pcr/cardpool/blcardpool.json";
+
 
     @Autowired
     private Bot bot;
@@ -33,7 +33,7 @@ public class PcrBeanConfig {
         if(bot instanceof KrisBot){
             return CardPool.builder().comment("maxCardPool").build();
         }else{
-            String jsonStr = FileUtil.readJsonFile(FileUtil.getFilePath(MAX_CARD_POOL_PATH));
+            String jsonStr = FileUtil.readJsonFile(FileUtil.getFilePath(FilePathConstant.MAX_CARD_POOL_PATH));
             return JSON.parseObject(jsonStr, CardPool.class);
         }
     }
@@ -42,7 +42,7 @@ public class PcrBeanConfig {
         if(bot instanceof KrisBot){
             return CardPool.builder().comment("blCardPool").build();
         }else{
-            String jsonStr = FileUtil.readJsonFile(FileUtil.getFilePath(BL_CARD_POOL_PATH));
+            String jsonStr = FileUtil.readJsonFile(FileUtil.getFilePath(FilePathConstant.BL_CARD_POOL_PATH));
             return JSON.parseObject(jsonStr, CardPool.class);
         }
     }

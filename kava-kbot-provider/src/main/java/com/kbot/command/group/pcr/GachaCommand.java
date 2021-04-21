@@ -1,16 +1,21 @@
 package com.kbot.command.group.pcr;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.kbot.command.group.GroupCommand;
+import com.kbot.config.BotProperties;
+import com.kbot.constant.FilePathConstant;
 import com.kbot.constant.pcr.PrincessStar;
 import com.kbot.dto.pcr.PrincessDto;
 import com.kbot.entity.CommandProperties;
 import com.kbot.entity.pcr.CardPool;
 import com.kbot.service.CommandHandleService;
+import com.kbot.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +42,15 @@ public class GachaCommand implements GroupCommand {
     private final String GACHA_TEN = "gachaTen";
     private final String GACHA_NESS = "gachaNess";
     private final String GACHA_WELL = "gachaWell";
+    private final String GACHA_Admin = "gachaAdmin";
     private final List<String> ONE = Lists.newArrayList("单抽");
     private final List<String> NESS = Lists.newArrayList("必得");
     private final List<String> TEN = Lists.newArrayList("十连","来一发");
     private final List<String> WELL = Lists.newArrayList("来一井");
+    private final List<String> ADMIN = Lists.newArrayList("刷新卡池");
 
+    @Autowired
+    private BotProperties botProperties;
     @Autowired
     private CardPool blCardPool;
     @Autowired
@@ -54,6 +63,7 @@ public class GachaCommand implements GroupCommand {
         alias.addAll(TEN);
         alias.addAll(NESS);
         alias.addAll(WELL);
+        alias.addAll(ADMIN);
         return CommandProperties.builder()
                 .name("gacha")
                 .type(1)
@@ -73,12 +83,36 @@ public class GachaCommand implements GroupCommand {
                 return gachaTen(sender,GACHA_NESS);
             case GACHA_WELL:
                 return gachaWell(sender);
+            case GACHA_Admin:
+                return adminGacha(sender);
             default:
                 break;
         }
         return MessageUtils.newChain()
                 .plus(new PlainText("扭蛋机坏了┭┮﹏┭┮"))
                 .plus(new At(sender.getId()));
+    }
+
+    private Message adminGacha(User sender){
+        try {
+            if(botProperties.getMaster().equals(sender.getId())){
+                reloadCardPool();
+                return MessageUtils.newChain()
+                    .plus(new PlainText("刷新成功，当前up角色："+blCardPool.getUp().get(0)));
+            }else{
+                return MessageUtils.newChain()
+                        .plus(new PlainText("未知操作？？"));
+            }
+        }catch (Exception e){
+            return MessageUtils.newChain()
+                    .plus(new PlainText("刷新异常。。"));
+        }
+    }
+
+    private void reloadCardPool(){
+        String jsonStr = FileUtil.readJsonFile(FileUtil.getFilePath(FilePathConstant.MAX_CARD_POOL_PATH));
+        CardPool tmp = JSON.parseObject(jsonStr, CardPool.class);
+        BeanUtils.copyProperties(tmp,blCardPool);
     }
 
     /**
@@ -174,13 +208,12 @@ public class GachaCommand implements GroupCommand {
         }else{
             sb.append(String.format("在第%d抽抽到up角色。",fistUp)).append("\n");
             formatStar3(upResult, sb);
-            if (star3Result.isEmpty()){
-                sb.append("连三星都没有抽到。");
-            }else{
-                formatStar3(star3Result, sb);
-            }
         }
-
+        if (star3Result.isEmpty()){
+            sb.append("连三星都没有抽到。");
+        }else{
+            formatStar3(star3Result, sb);
+        }
         sb.deleteCharAt(sb.length()-1).append("。");
         return MessageUtils.newChain().plus(sb.toString()).plus(new At(sender.getId()));
     }
@@ -318,8 +351,10 @@ public class GachaCommand implements GroupCommand {
             return GACHA_TEN;
         }else if(NESS.contains(message)){
             return GACHA_NESS;
-        }else {
+        }else if(ONE.contains(message)){
             return GACHA_SINGLE;
+        }else {
+            return GACHA_Admin;
         }
     }
 }

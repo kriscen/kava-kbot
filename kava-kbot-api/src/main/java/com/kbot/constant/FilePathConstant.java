@@ -34,6 +34,13 @@ public class FilePathConstant {
      */
     public final static String FORTUNE_IMAGE_MODE = "static/image/fortune";
 
-
+    /**
+     * pcr卡池
+     */
+    public final static String MAX_CARD_POOL_PATH = PCR_FILE_CARDPOOL_MODE + "/maxcardpool.json";
+    /**
+     * bcr卡池
+     */
+    public final static String BL_CARD_POOL_PATH = PCR_FILE_CARDPOOL_MODE + "/blcardpool.json";
 
 }
