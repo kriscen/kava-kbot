@@ -25,14 +25,14 @@ public class ImageServiceTest {
     private ImageService imageService;
 
     @Test
-    public void copy(){
+    public void copy() throws IOException {
         File file = new File(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE));
         File[] files = file.listFiles();
         for (File source : files) {
             System.out.println(source.getName());
-//                Thumbnails.of(source)
-//                        .size(50, 50)
-//                        .toFile("D:/image/"+source.getName());
+                Thumbnails.of(source)
+                        .size(40, 40)
+                        .toFile("D:/image/"+source.getName());
         }
     }
 

@@ -79,15 +79,15 @@ public class GachaCommand implements GroupCommand {
         String mode = getGachaMode(commandHandleService.getContent(args));
         switch(mode){
             case GACHA_SINGLE:
-                return gachaSingle(subject);
+                return gachaSingle(subject,sender);
             case GACHA_TEN:
-                return gachaTen(subject,GACHA_TEN);
+                return gachaTen(subject,sender,GACHA_TEN);
             case GACHA_NESS:
-                return gachaTen(subject,GACHA_NESS);
+                return gachaTen(subject,sender,GACHA_NESS);
             case GACHA_WELL:
-                return gachaWell(subject);
+                return gachaWell(sender);
             case GACHA_Admin:
-                return adminGacha(subject);
+                return adminGacha(sender);
             default:
                 break;
         }
@@ -96,7 +96,7 @@ public class GachaCommand implements GroupCommand {
                 .plus(new At(sender.getId()));
     }
 
-    private Message adminGacha(Contact sender){
+    private Message adminGacha(User sender){
         try {
             if(botProperties.getMaster().equals(sender.getId())){
                 reloadCardPool();
@@ -123,8 +123,8 @@ public class GachaCommand implements GroupCommand {
      * @param sender sender
      * @return message
      */
-    private Message gachaSingle(Contact sender){
-        PrincessDto dto = gachaPrincess();
+    private Message gachaSingle(Contact contact,User sender){
+        PrincessDto dto = gachaPrincess(GACHA_SINGLE);
         StringBuilder sb = new StringBuilder();
         sb.append(dto.getName());
         sb.append("(");
@@ -133,7 +133,7 @@ public class GachaCommand implements GroupCommand {
         }
         sb.append(")");
         return MessageUtils.newChain()
-                .plus(imageService.sendImage4Local(sender,dto.getAvatarPath()))
+                .plus(imageService.sendImage4Local(contact,dto.getAvatarPath()))
                 .plus(new PlainText(sb))
                 .plus(new At(sender.getId()));
     }
@@ -144,7 +144,8 @@ public class GachaCommand implements GroupCommand {
      * @param mode mode
      * @return message
      */
-    private Message gachaTen(Contact sender,String mode){
+    private Message gachaTen(Contact contact,User sender,String mode){
+        List<Message> messageList = Lists.newArrayList();
         List<PrincessDto> ten;
         if(GACHA_TEN.equals(mode)){
             ten = gachaTenPrincess();
@@ -152,11 +153,10 @@ public class GachaCommand implements GroupCommand {
             ten = gachaTenPrincessNess();
         }
         List<Image> images = Lists.newArrayList();
-        ten.forEach(t->images.add(imageService.sendImage4Local(sender,t.getAvatarPath())));
+        ten.forEach(t->images.add(imageService.sendImage4Local(contact,t.getAvatarPath())));
         StringBuilder sb = new StringBuilder();
-        MessageChain chain = MessageUtils.newChain();
         for (int i = 0; i < ten.size(); i++) {
-            chain.plus(images.get(i));
+            messageList.add(images.get(i));
             sb.append(ten.get(i).getName());
             sb.append("(");
             for (int j = 0; j < ten.get(i).getPrincessStar().getStarNUm(); j++) {
@@ -169,12 +169,14 @@ public class GachaCommand implements GroupCommand {
                 sb.append("。");
             }
             if(i == 4){
-                chain.plus(new PlainText("\n"));
+                messageList.add(new PlainText("\n"));
                 sb.append("\n");
             }
         }
+        messageList.add(new PlainText(sb));
+        messageList.add(new At(sender.getId()));
 
-        return chain.plus(sb.toString()).plus(new At(sender.getId()));
+        return MessageUtils.newChain(messageList.iterator());
     }
 
     /**
@@ -182,7 +184,7 @@ public class GachaCommand implements GroupCommand {
      * @param sender sender
      * @return message
      */
-    private Message gachaWell(Contact sender){
+    private Message gachaWell(User sender){
         List<PrincessDto> well = Lists.newArrayList();
         //300抽，30次十连
         int wellNum = 30;
@@ -247,7 +249,7 @@ public class GachaCommand implements GroupCommand {
         List<PrincessDto> ten = Lists.newArrayList();
         int normal = 9;
         for (int i = 1; i <= normal; i++) {
-            ten.add(gachaPrincess());
+            ten.add(gachaPrincess(GACHA_TEN));
         }
         long count = ten.stream().filter(t -> PrincessStar.STAR_1.equals(t.getPrincessStar())).count();
         if(count == 9){
@@ -259,7 +261,7 @@ public class GachaCommand implements GroupCommand {
                     .princessStar(PrincessStar.STAR_2)
                     .build());
         }else{
-            ten.add(gachaPrincess());
+            ten.add(gachaPrincess(GACHA_TEN));
         }
         return ten;
     }
@@ -271,13 +273,13 @@ public class GachaCommand implements GroupCommand {
         List<PrincessDto> ten = Lists.newArrayList();
         int normal = 9;
         for (int i = 1; i <= normal; i++) {
-            ten.add(gachaPrincess());
+            ten.add(gachaPrincess(GACHA_TEN));
         }
         boolean indemnify = ten.stream().anyMatch(t -> t.getPrincessStar().getStarNUm() == 3);
         if(!indemnify){
             ten.add(indemnifyPrincessNess());
         }else{
-            ten.add(gachaPrincess());
+            ten.add(gachaPrincess(GACHA_TEN));
         }
         return ten;
     }
@@ -313,16 +315,22 @@ public class GachaCommand implements GroupCommand {
      * 单抽
      * @return dto
      */
-    private PrincessDto gachaPrincess(){
+    private PrincessDto gachaPrincess(String mode){
         Random random = new Random();
         int pick = random.nextInt(1000);
         String pickName;
+        String avatarPath;
+        if(GACHA_SINGLE.equals(mode)){
+            avatarPath = FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE;
+        }else{
+            avatarPath = FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE;
+        }
         if(pick <= blCardPool.getUpProb()){
             List<String> up = blCardPool.getUp();
             pickName = up.get(random.nextInt(up.size()));
             return PrincessDto.builder()
                     .name(pickName)
-                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE+"/"+pickName+".png"))
+                    .avatarPath(FileUtil.getFilePath(avatarPath  + "/"+pickName+".png"))
                     .princessStar(PrincessStar.STAR_UP)
                     .build();
         }else if(pick <= blCardPool.getS3Prob()){
@@ -330,7 +338,7 @@ public class GachaCommand implements GroupCommand {
             pickName = star3.get(random.nextInt(star3.size()));
             return PrincessDto.builder()
                     .name(pickName)
-                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE+"/"+pickName+".png"))
+                    .avatarPath(FileUtil.getFilePath(avatarPath +"/"+pickName+".png"))
                     .princessStar(PrincessStar.STAR_3)
                     .build();
         }else if(pick <= blCardPool.getS2Prob()){
@@ -338,7 +346,7 @@ public class GachaCommand implements GroupCommand {
             pickName = star2.get(random.nextInt(star2.size()));
             return PrincessDto.builder()
                     .name(pickName)
-                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE+"/"+pickName+".png"))
+                    .avatarPath(FileUtil.getFilePath(avatarPath+"/"+pickName+".png"))
                     .princessStar(PrincessStar.STAR_2)
                     .build();
         }else {
@@ -346,7 +354,7 @@ public class GachaCommand implements GroupCommand {
             pickName = star1.get(random.nextInt(star1.size()));
             return PrincessDto.builder()
                     .name(pickName)
-                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE+"/"+pickName+".png"))
+                    .avatarPath(FileUtil.getFilePath(avatarPath+"/"+pickName+".png"))
                     .princessStar(PrincessStar.STAR_1)
                     .build();
         }

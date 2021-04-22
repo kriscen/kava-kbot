@@ -33,7 +33,8 @@ public class CommandHandleServiceImpl implements CommandHandleService {
 
     @Override
     public BaseCommand getCommand(String msg, Map<String, ? extends BaseCommand> commandContainer) {
-        return commandContainer.get(getContent(msg));
+        String[] split = getContent(msg).split(" ");
+        return commandContainer.get(split[0]);
     }
 
     @Override
@@ -42,14 +43,17 @@ public class CommandHandleServiceImpl implements CommandHandleService {
             return msg;
         }
         String head = getCommandHead(msg);
-        return msg.substring(head.length()).trim();
+        assert head != null;
+        String trim = msg.substring(head.length()).trim();
+        System.out.println("content :" + trim);
+        return trim;
     }
 
 
     /**
      * 处理信息，得到头
-     * @param msg
-     * @return
+     * @param msg msg
+     * @return content，去除强制开头剩余内容
      */
     private String getCommandHead(String msg){
         Set<String> heads = botContainer.getCommandHead();

@@ -74,8 +74,7 @@ public class FriendTestCommand implements FriendCommand {
     }
 
     private Image imageMode(User sender){
-//        String path = FileUtil.getFilePath("static/image/ue.jpg");
-        String path = FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE+"/玲奈.png");
+        String path = FileUtil.getFilePath("static/image/ue.jpg");
         return imageService.sendImage4Local(sender,path);
     }
 }
