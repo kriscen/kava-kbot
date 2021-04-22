@@ -151,8 +151,12 @@ public class GachaCommand implements GroupCommand {
         }else {
             ten = gachaTenPrincessNess();
         }
+        List<Image> images = Lists.newArrayList();
+        ten.forEach(t->images.add(imageService.sendImage4Local(sender,t.getAvatarPath())));
         StringBuilder sb = new StringBuilder();
+        MessageChain chain = MessageUtils.newChain();
         for (int i = 0; i < ten.size(); i++) {
+            chain.plus(images.get(i));
             sb.append(ten.get(i).getName());
             sb.append("(");
             for (int j = 0; j < ten.get(i).getPrincessStar().getStarNUm(); j++) {
@@ -165,10 +169,12 @@ public class GachaCommand implements GroupCommand {
                 sb.append("。");
             }
             if(i == 4){
+                chain.plus(new PlainText("\n"));
                 sb.append("\n");
             }
         }
-        return MessageUtils.newChain().plus(sb.toString()).plus(new At(sender.getId()));
+
+        return chain.plus(sb.toString()).plus(new At(sender.getId()));
     }
 
     /**
@@ -249,7 +255,7 @@ public class GachaCommand implements GroupCommand {
             String pickName = star2.get(new Random().nextInt(star2.size()));
             ten.add(PrincessDto.builder()
                     .name(pickName)
-                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE+"/"+pickName+".png"))
+                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE+"/"+pickName+".png"))
                     .princessStar(PrincessStar.STAR_2)
                     .build());
         }else{
@@ -290,7 +296,7 @@ public class GachaCommand implements GroupCommand {
             pickName = up.get(random.nextInt(up.size()));
             return PrincessDto.builder()
                     .name(pickName)
-                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE+"/"+pickName+".png"))
+                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE+"/"+pickName+".png"))
                     .princessStar(PrincessStar.STAR_UP)
                     .build();
         }else{
@@ -298,7 +304,7 @@ public class GachaCommand implements GroupCommand {
             pickName = star3.get(random.nextInt(star3.size()));
             return PrincessDto.builder()
                     .name(pickName)
-                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE+"/"+pickName+".png"))
+                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE+"/"+pickName+".png"))
                     .princessStar(PrincessStar.STAR_3)
                     .build();
         }
@@ -316,7 +322,7 @@ public class GachaCommand implements GroupCommand {
             pickName = up.get(random.nextInt(up.size()));
             return PrincessDto.builder()
                     .name(pickName)
-                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE+"/"+pickName+".png"))
+                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE+"/"+pickName+".png"))
                     .princessStar(PrincessStar.STAR_UP)
                     .build();
         }else if(pick <= blCardPool.getS3Prob()){
@@ -324,7 +330,7 @@ public class GachaCommand implements GroupCommand {
             pickName = star3.get(random.nextInt(star3.size()));
             return PrincessDto.builder()
                     .name(pickName)
-                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE+"/"+pickName+".png"))
+                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE+"/"+pickName+".png"))
                     .princessStar(PrincessStar.STAR_3)
                     .build();
         }else if(pick <= blCardPool.getS2Prob()){
@@ -332,7 +338,7 @@ public class GachaCommand implements GroupCommand {
             pickName = star2.get(random.nextInt(star2.size()));
             return PrincessDto.builder()
                     .name(pickName)
-                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE+"/"+pickName+".png"))
+                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE+"/"+pickName+".png"))
                     .princessStar(PrincessStar.STAR_2)
                     .build();
         }else {
@@ -340,7 +346,7 @@ public class GachaCommand implements GroupCommand {
             pickName = star1.get(random.nextInt(star1.size()));
             return PrincessDto.builder()
                     .name(pickName)
-                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE+"/"+pickName+".png"))
+                    .avatarPath(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_TINY_IMAGE_MODE+"/"+pickName+".png"))
                     .princessStar(PrincessStar.STAR_1)
                     .build();
         }

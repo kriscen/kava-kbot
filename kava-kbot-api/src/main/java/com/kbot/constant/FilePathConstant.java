@@ -19,6 +19,8 @@ public class FilePathConstant {
 
     public final static String PCR_IMAGE_MODE = "static/image/pcr";
 
+    public final static String PCR_AVATAR_TINY_IMAGE_MODE = PCR_IMAGE_MODE + "/avatar/tiny";
+
     public final static String PCR_AVATAR_SMALL_IMAGE_MODE = PCR_IMAGE_MODE + "/avatar/small";
 
     public final static String PCR_AVATAR_MEDIUM_IMAGE_MODE = PCR_IMAGE_MODE + "/avatar/medium";

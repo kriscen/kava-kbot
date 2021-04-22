@@ -1,10 +1,11 @@
 package com.kot;
 
 import com.kbot.KbotApplication;
-import com.kbot.command.everywhere.EverywhereCommand;
-import com.kbot.config.BotContainer;
-import com.kbot.service.CommandHandleService;
+import com.kbot.constant.FilePathConstant;
 import com.kbot.service.ImageService;
+import com.kbot.utils.FileUtil;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Map;
+import java.io.IOException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = KbotApplication.class)
@@ -23,6 +24,17 @@ public class ImageServiceTest {
     @Autowired
     private ImageService imageService;
 
+    @Test
+    public void copy(){
+        File file = new File(FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE));
+        File[] files = file.listFiles();
+        for (File source : files) {
+            System.out.println(source.getName());
+//                Thumbnails.of(source)
+//                        .size(50, 50)
+//                        .toFile("D:/image/"+source.getName());
+        }
+    }
 
     @Test
     public void downloadTest(){
