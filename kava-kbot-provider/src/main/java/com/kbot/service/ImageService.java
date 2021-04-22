@@ -1,5 +1,6 @@
 package com.kbot.service;
 
+import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Image;
 
@@ -23,7 +24,7 @@ public interface ImageService {
      * @param url 网络图片地址
      * @return image
      */
-    Image sendImage4Online(User sender,String url);
+    Image sendImage4Online(Contact sender,String url);
 
     /**
      * 从本地发送图片
@@ -31,7 +32,7 @@ public interface ImageService {
      * @param path 本地路径
      * @return image
      */
-    Image sendImage4Local(User sender,String path);
+    Image sendImage4Local(Contact sender, String path);
 
     /**
      * 从本地发送图片
@@ -39,7 +40,7 @@ public interface ImageService {
      * @param file 本地路径
      * @return image
      */
-    Image sendImage4Local(User sender, File file);
+    Image sendImage4Local(Contact sender, File file);
 
     /**
      * 从本地发送图片
@@ -47,7 +48,7 @@ public interface ImageService {
      * @param is 本地流
      * @return image
      */
-    Image sendImage4Local(User sender, InputStream is);
+    Image sendImage4Local(Contact sender, InputStream is);
 
     /**
      * 将网络图片下载到本地

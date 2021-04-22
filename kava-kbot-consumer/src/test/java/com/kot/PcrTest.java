@@ -40,8 +40,6 @@ public class PcrTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date parse = sdf.parse("2021-04-18 23:01:01");
-            int hours = parse.getHours();
-            System.out.println(hours);
         } catch (ParseException e) {
             e.printStackTrace();
         }

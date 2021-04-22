@@ -79,15 +79,15 @@ public class GachaCommand implements GroupCommand {
         String mode = getGachaMode(commandHandleService.getContent(args));
         switch(mode){
             case GACHA_SINGLE:
-                return gachaSingle(sender);
+                return gachaSingle(subject);
             case GACHA_TEN:
-                return gachaTen(sender,GACHA_TEN);
+                return gachaTen(subject,GACHA_TEN);
             case GACHA_NESS:
-                return gachaTen(sender,GACHA_NESS);
+                return gachaTen(subject,GACHA_NESS);
             case GACHA_WELL:
-                return gachaWell(sender);
+                return gachaWell(subject);
             case GACHA_Admin:
-                return adminGacha(sender);
+                return adminGacha(subject);
             default:
                 break;
         }
@@ -96,7 +96,7 @@ public class GachaCommand implements GroupCommand {
                 .plus(new At(sender.getId()));
     }
 
-    private Message adminGacha(User sender){
+    private Message adminGacha(Contact sender){
         try {
             if(botProperties.getMaster().equals(sender.getId())){
                 reloadCardPool();
@@ -123,7 +123,7 @@ public class GachaCommand implements GroupCommand {
      * @param sender sender
      * @return message
      */
-    private Message gachaSingle(User sender){
+    private Message gachaSingle(Contact sender){
         PrincessDto dto = gachaPrincess();
         StringBuilder sb = new StringBuilder();
         sb.append(dto.getName());
@@ -133,7 +133,7 @@ public class GachaCommand implements GroupCommand {
         }
         sb.append(")");
         return MessageUtils.newChain()
-                .plus(imageService.sendImage4Local(sender,dto.getAvatarPath())).plus("\n")
+                .plus(imageService.sendImage4Local(sender,dto.getAvatarPath()))
                 .plus(new PlainText(sb))
                 .plus(new At(sender.getId()));
     }
@@ -144,17 +144,15 @@ public class GachaCommand implements GroupCommand {
      * @param mode mode
      * @return message
      */
-    private Message gachaTen(User sender,String mode){
+    private Message gachaTen(Contact sender,String mode){
         List<PrincessDto> ten;
         if(GACHA_TEN.equals(mode)){
             ten = gachaTenPrincess();
         }else {
             ten = gachaTenPrincessNess();
         }
-        MessageChain chain = MessageUtils.newChain();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < ten.size(); i++) {
-            chain.plus(imageService.sendImage4Local(sender,ten.get(i).getAvatarPath()));
             sb.append(ten.get(i).getName());
             sb.append("(");
             for (int j = 0; j < ten.get(i).getPrincessStar().getStarNUm(); j++) {
@@ -167,11 +165,10 @@ public class GachaCommand implements GroupCommand {
                 sb.append("。");
             }
             if(i == 4){
-                chain.plus("\n");
                 sb.append("\n");
             }
         }
-        return chain.plus(sb.toString()).plus(new At(sender.getId()));
+        return MessageUtils.newChain().plus(sb.toString()).plus(new At(sender.getId()));
     }
 
     /**
@@ -179,7 +176,7 @@ public class GachaCommand implements GroupCommand {
      * @param sender sender
      * @return message
      */
-    private Message gachaWell(User sender){
+    private Message gachaWell(Contact sender){
         List<PrincessDto> well = Lists.newArrayList();
         //300抽，30次十连
         int wellNum = 30;

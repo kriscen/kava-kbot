@@ -58,7 +58,7 @@ public class FortuneCommand implements GroupCommand {
         }
         File file = FileUtil.randomFile(FileUtil.getFilePath(FilePathConstant.FORTUNE_IMAGE_MODE), index);
         return MessageUtils.newChain()
-                .plus(imageService.sendImage4Local(sender,file))
+                .plus(imageService.sendImage4Local(subject,file))
                 .plus(new At(sender.getId()));
     }
 

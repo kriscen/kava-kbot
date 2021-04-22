@@ -64,7 +64,7 @@ public class CatrotCommand implements GroupCommand {
                 .append(info.isStatus() ? "正位" : "逆位")
                 .append("]").append("\n")
                 .append(info.isStatus() ? info.getNormalDes() : info.getSeDlamron());
-        Image image = imageService.sendImage4Local(sender, FileUtil.getFilePath(FilePathConstant.CATROT_IMAGE_MODE + "/" + info.getImgName()));
+        Image image = imageService.sendImage4Local(subject, FileUtil.getFilePath(FilePathConstant.CATROT_IMAGE_MODE + "/" + info.getImgName()));
         return MessageUtils.newChain()
                 .plus(image).plus("\n")
                 .plus(resultStr.toString())

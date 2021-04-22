@@ -1,11 +1,11 @@
-package com.kbot.command.everywhere;
+package com.kbot.command.friend;
 
+import com.kbot.constant.FilePathConstant;
 import com.kbot.entity.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.service.ImageService;
 import com.kbot.utils.FileUtil;
 import net.mamoe.mirai.contact.Contact;
-import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.Arrays;
  * @author kris
  */
 @Service
-public class FriendTestCommand implements EverywhereCommand {
+public class FriendTestCommand implements FriendCommand {
     private final String VERSION = "version";
     private final String STRING_MODE = "mode1";
     private final String IMAGE_MODE = "mode2";
@@ -44,15 +44,14 @@ public class FriendTestCommand implements EverywhereCommand {
 
     @Override
     public Message execute(User sender, String args, MessageChain messageChain, Contact subject) {
-        Friend friend = (Friend) sender;
         switch(commandHandleService.getContent(args)){
             case VERSION:
                 return MessageUtils.newChain()
                         .plus("1.0-kava.start-SNAPSHOT");
             case STRING_MODE:
-                return testString(friend);
+                return testString(sender);
             case IMAGE_MODE:
-                return imageMode(friend);
+                return imageMode(sender);
             default:
                 break;
         }
@@ -61,7 +60,7 @@ public class FriendTestCommand implements EverywhereCommand {
                 .build();
     }
 
-    private Message testString(Friend friend){
+    private Message testString(User sender){
         /*MessageChain chain = new MessageChainBuilder()
                 .append(new PlainText("hello"))
                 // 会被构造成 PlainText 再添加, 相当于上一行
@@ -71,11 +70,12 @@ public class FriendTestCommand implements EverywhereCommand {
         return MessageUtils.newChain()
                 .plus(new PlainText("hello"))
                 .plus("word")
-                .plus(new At(friend.getId()));
+                .plus(new At(sender.getId()));
     }
 
-    private Image imageMode(Friend friend){
-        String path = FileUtil.getFilePath("static/image/ue.jpg");
-        return imageService.sendImage4Local(friend,path);
+    private Image imageMode(User sender){
+//        String path = FileUtil.getFilePath("static/image/ue.jpg");
+        String path = FileUtil.getFilePath(FilePathConstant.PCR_AVATAR_SMALL_IMAGE_MODE+"/玲奈.png");
+        return imageService.sendImage4Local(sender,path);
     }
 }
