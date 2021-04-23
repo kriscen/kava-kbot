@@ -27,7 +27,7 @@ public class BotManageController {
     @GetMapping("/msgTest")
     public R<Object> msgTest() {
 
-        return R.ok(1);
+        return R.ok("测试");
     }
 
 }

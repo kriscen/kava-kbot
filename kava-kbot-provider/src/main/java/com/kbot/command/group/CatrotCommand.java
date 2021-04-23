@@ -1,8 +1,6 @@
 package com.kbot.command.group;
 
 import com.google.common.collect.Lists;
-import com.kbot.command.friend.FriendCommand;
-import com.kbot.command.group.GroupCommand;
 import com.kbot.config.BotContainer;
 import com.kbot.constant.FilePathConstant;
 import com.kbot.entity.CommandProperties;
@@ -16,7 +14,6 @@ import net.mamoe.mirai.message.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;

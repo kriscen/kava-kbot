@@ -42,9 +42,9 @@ public class FileLoadRunner implements ApplicationRunner {
      */
     private void catrotLoad(){
         List<TarotInfo> list = botContainer.getCatrotTextList();
-        File tarotFile = new File(FileUtil.getFilePath(FilePathConstant.CATROT_FILE_MODE + "/catrot.txt"));
+        File tarotFile = new File(FileUtil.getFilePath(FilePathConstant.CATROT_FILE_MODE + "/catrot"));
         //创建读取器
-        BufferedReader reader = null;
+        BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader(tarotFile));
         } catch (FileNotFoundException e) {
@@ -62,21 +62,30 @@ public class FileLoadRunner implements ApplicationRunner {
                 if (freeTimeStr.length() <= 0){
                     continue;
                 }
-                TarotInfo tempInfo = new TarotInfo();
+                System.out.println(freeTimeStr);
+                TarotInfo positiveInfo = new TarotInfo();
+                TarotInfo negativeInfo = new TarotInfo();
                 //首先是图片名称
-                tempInfo.setImgName(freeTimeStr);
+                positiveInfo.setImgName(freeTimeStr);
+                negativeInfo.setImgName(freeTimeStr);
                 //再往下读一行，是卡牌名称
                 freeTimeStr = reader.readLine();
-                tempInfo.setName(freeTimeStr);
+                System.out.println(freeTimeStr);
+                positiveInfo.setName(freeTimeStr);
+                negativeInfo.setName(freeTimeStr);
                 //再往下读一行，是正位描述
                 freeTimeStr = reader.readLine();
+                System.out.println(freeTimeStr);
                 freeTimeStr = freeTimeStr.substring(freeTimeStr.indexOf("：") + 1);
-                tempInfo.setNormalDes(freeTimeStr);
+                positiveInfo.setNormalDes(freeTimeStr);
+                positiveInfo.setStatus(true);
                 //再往下读一行，是逆位描述
                 freeTimeStr = reader.readLine();
                 freeTimeStr = freeTimeStr.substring(freeTimeStr.indexOf("：") + 1);
-                tempInfo.setSeDlamron(freeTimeStr);
-                list.add(tempInfo);
+                negativeInfo.setSeDlamron(freeTimeStr);
+                negativeInfo.setStatus(false);
+                list.add(positiveInfo);
+                list.add(negativeInfo);
             }
         }catch (Exception e){
 

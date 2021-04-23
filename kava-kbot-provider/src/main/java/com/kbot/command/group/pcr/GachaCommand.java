@@ -153,10 +153,14 @@ public class GachaCommand implements GroupCommand {
             ten = gachaTenPrincessNess();
         }
         List<Image> images = Lists.newArrayList();
-        ten.forEach(t->images.add(imageService.sendImage4Local(contact,t.getAvatarPath())));
+        ten.forEach(t->{
+            if(t.getPrincessStar().getStarNUm() == 3){
+                images.add(imageService.sendImage4Local(contact,t.getAvatarPath()));
+            }
+        });
         StringBuilder sb = new StringBuilder();
+        messageList.addAll(images);
         for (int i = 0; i < ten.size(); i++) {
-            messageList.add(images.get(i));
             sb.append(ten.get(i).getName());
             sb.append("(");
             for (int j = 0; j < ten.get(i).getPrincessStar().getStarNUm(); j++) {
@@ -169,7 +173,6 @@ public class GachaCommand implements GroupCommand {
                 sb.append("。");
             }
             if(i == 4){
-                messageList.add(new PlainText("\n"));
                 sb.append("\n");
             }
         }
