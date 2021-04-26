@@ -44,9 +44,7 @@ public class CommandHandleServiceImpl implements CommandHandleService {
         }
         String head = getCommandHead(msg);
         assert head != null;
-        String trim = msg.substring(head.length()).trim();
-        System.out.println("content :" + trim);
-        return trim;
+        return msg.substring(head.length()).trim();
     }
 
 
