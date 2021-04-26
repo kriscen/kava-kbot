@@ -1,28 +1,22 @@
 package com.kbot.spider.MzituSpider;
 
-import com.kbot.constant.FilePathConstant;
 import com.kbot.entity.spider.KbotFileType;
 import com.kbot.spider.KbotFilePipeline;
-import com.kbot.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
-import us.codecraft.webmagic.pipeline.ConsolePipeline;
-import us.codecraft.webmagic.pipeline.FilePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.processor.example.GithubRepoPageProcessor;
 import us.codecraft.webmagic.proxy.Proxy;
 import us.codecraft.webmagic.proxy.SimpleProxyProvider;
-import us.codecraft.webmagic.selector.Selectable;
 
 import java.util.regex.Pattern;
 
 /**
  * Program Name: kava-kbot
  * <p>
- * Description: mzitu
+ * Description: mzitu - 由于防盗链 以及服务器限制  展示不做
  * <p>
  * Created by kris on 2021/4/24
  *

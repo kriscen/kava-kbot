@@ -6,11 +6,13 @@ import com.kbot.constant.FilePathConstant;
 import com.kbot.entity.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.service.ImageService;
+import com.kbot.service.ShareApiService;
 import com.kbot.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.*;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +58,8 @@ public class SetuCommand implements GroupCommand {
     private ImageService imageService;
     @Autowired
     private CommandHandleService commandHandleService;
+    @Autowired
+    private ShareApiService gankApiService;
 
     @Override
     public CommandProperties properties() {
@@ -73,9 +77,24 @@ public class SetuCommand implements GroupCommand {
     @Override
     public Message execute(User sender, String args, MessageChain messageChain, Contact subject) {
         String mode = getMode(commandHandleService.getContent(args));
+        switch(mode){
+            case GIRL_MODE:
+                return girlMode(subject);
+            case ACG_MODE:
+                return MessageUtils.newChain().plus("二次元妹子还在路上...");
+            case SETU_MODE:
+                return MessageUtils.newChain().plus("@黑宝 色图");
+            default:
+                break;
+        }
         return MessageUtils.newChain()
                 .plus(new PlainText("ue 听不懂你在说什么(⊙_⊙)?"));
     }
+
+    private Message girlMode(Contact subject){
+        return MessageUtils.newChain(imageService.sendImage4Online(subject,gankApiService.extract()));
+    }
+
     /**
      * 根据信息获取是模式
      * @param message msg

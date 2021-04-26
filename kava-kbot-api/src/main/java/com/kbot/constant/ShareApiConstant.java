@@ -18,5 +18,8 @@ public class ShareApiConstant {
      * 妹子图
      */
     public final static String MZITU_URL = "https://www.mzitu.com/";
-
+    /**
+     * PC日历
+     */
+    public final static String BCR_CALENDAR_URL = "https://pcrbot.github.io/calendar-updater-action/cn.json";
 }

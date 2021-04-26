@@ -14,5 +14,5 @@ public interface ShareApiService {
      * 从api提取image url
      * @return url
      */
-    public String getImageUrl();
+    String extract();
 }

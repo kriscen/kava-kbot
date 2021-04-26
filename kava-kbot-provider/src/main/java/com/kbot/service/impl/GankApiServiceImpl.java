@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 @Service("gankApiService")
 public class GankApiServiceImpl implements ShareApiService {
     @Override
-    public String getImageUrl() {
+    public String extract() {
         CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpGet get = new HttpGet(ShareApiConstant.GANK_URL);
         try {

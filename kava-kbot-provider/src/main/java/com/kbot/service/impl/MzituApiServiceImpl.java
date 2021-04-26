@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service("mzituApiService")
 public class MzituApiServiceImpl implements ShareApiService {
     @Override
-    public String getImageUrl() {
+    public String extract() {
         return null;
     }
 }
