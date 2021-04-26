@@ -6,6 +6,7 @@ import com.kbot.command.group.GroupCommand;
 import com.kbot.command.grouptempmessage.GroupTempMessageCommand;
 import com.kbot.config.BotContainer;
 import com.kbot.service.CommandHandleService;
+import com.kbot.service.GlobalEventHandleService;
 import kotlin.coroutines.CoroutineContext;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Friend;
@@ -37,6 +38,9 @@ public class MessageEvents extends SimpleListenerHost {
     @Autowired
     private BotContainer botContainer;
 
+    @Autowired
+    private GlobalEventHandleService globalEventHandleService;
+
     @Override
     public void handleException(@NotNull CoroutineContext context, @NotNull Throwable exception) {
         log.error("RecallEvent Error:{}", exception.getMessage());
@@ -62,6 +66,8 @@ public class MessageEvents extends SimpleListenerHost {
         }
         BaseCommand command = commandHandleService.getCommand(oriMsg, botContainer.getEverywhereCommands());
         if (command == null) {
+            //触发全局动作
+            globalEventHandleService.execute(sender, oriMsg, event.getMessage(), event.getSubject());
             return ListeningStatus.LISTENING;
         }
         //执行指令并回复结果

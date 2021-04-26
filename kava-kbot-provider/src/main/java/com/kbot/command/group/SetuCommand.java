@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -54,12 +55,16 @@ public class SetuCommand implements GroupCommand {
     private final List<String> acgList = Lists.newArrayList("二次元");
     private final List<String> setuList = Lists.newArrayList("色图");
 
+    private final long coolTime = 5*60*1000;
+
     @Autowired
     private ImageService imageService;
     @Autowired
     private CommandHandleService commandHandleService;
     @Autowired
     private ShareApiService gankApiService;
+    @Autowired
+    private BotContainer botContainer;
 
     @Override
     public CommandProperties properties() {
@@ -76,10 +81,17 @@ public class SetuCommand implements GroupCommand {
 
     @Override
     public Message execute(User sender, String args, MessageChain messageChain, Contact subject) {
+        Long aLong = botContainer.getImageCooling().get(subject.getId());
+        if(System.currentTimeMillis() < aLong+coolTime){
+            ArrayList<String> list = Lists.newArrayList("冲太多了，歇一会吧。", "注意身体。", "小撸怡情，大撸伤身，强撸灰飞烟灭。", "冷却中。。。剩余时间"+(aLong+coolTime - System.currentTimeMillis())/1000 + "s");
+            return MessageUtils.newChain().plus(list.get(new Random().nextInt(list.size())));
+        }
         String mode = getMode(commandHandleService.getContent(args));
         switch(mode){
             case GIRL_MODE:
-                return girlMode(subject);
+                Message mode1 = girlMode(subject);
+                botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
+                return mode1;
             case ACG_MODE:
                 return MessageUtils.newChain().plus("二次元妹子还在路上...");
             case SETU_MODE:

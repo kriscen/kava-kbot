@@ -50,10 +50,7 @@ public class PcrTest {
     private Pattern multiPattern = Pattern.compile("(roll)[\\s]*(d)[\\d+](r)[\\d+]");
     @Test
     public void diceTest(){
-        String s1 = "roll 2";
-        String s2 = "roll d5r3";
-
-        System.out.println(getDiceResult(s2));
+        System.out.println(System.currentTimeMillis());
     }
 
     private String getDiceResult(String content){

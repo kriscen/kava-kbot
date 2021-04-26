@@ -4,6 +4,7 @@ import com.kbot.command.everywhere.EverywhereCommand;
 import com.kbot.command.friend.FriendCommand;
 import com.kbot.command.group.GroupCommand;
 import com.kbot.command.grouptempmessage.GroupTempMessageCommand;
+import com.kbot.entity.GroupRepeat;
 import com.kbot.entity.TarotInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -69,9 +70,18 @@ public class BotContainer {
      * 每日猫罗牌
      */
     private Map<Long,TarotInfo> catrotList;
+
     /**
      * 每日运势
      */
     private Map<Long,Integer> fortuneList;
 
+    /**
+     * 每个群组的复读概率
+     */
+    private Map<Long, GroupRepeat> repeatGroup;
+    /**
+     * 图片冷却时间
+     */
+    private Map<Long,Long> imageCooling;
 }
