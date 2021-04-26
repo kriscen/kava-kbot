@@ -1,4 +1,4 @@
-package com.kbot.entity.pcr;
+package com.kbot.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

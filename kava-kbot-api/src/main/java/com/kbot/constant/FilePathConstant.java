@@ -10,32 +10,11 @@ package com.kbot.constant;
  * @author kris
  */
 public class FilePathConstant {
+    /*  ------ file ------  */
     /**
-     * PCR模块地址
+     * PCR卡池文件夹
      */
-    public final static String PCR_FILE_MODE = "static/files/pcr";
-
-    public final static String PCR_FILE_CARDPOOL_MODE = PCR_FILE_MODE + "/cardpool";
-
-    public final static String PCR_IMAGE_MODE = "static/image/pcr";
-
-    public final static String PCR_AVATAR_TINY_IMAGE_MODE = PCR_IMAGE_MODE + "/avatar/tiny";
-
-    public final static String PCR_AVATAR_SMALL_IMAGE_MODE = PCR_IMAGE_MODE + "/avatar/small";
-
-    public final static String PCR_AVATAR_MEDIUM_IMAGE_MODE = PCR_IMAGE_MODE + "/avatar/medium";
-
-    /**
-     * 猫罗牌模块地址
-     */
-    public final static String CATROT_IMAGE_MODE = "static/image/catrot";
-
-    public final static String CATROT_FILE_MODE = "static/files/catrot";
-    /**
-     * 每日卜卦模块地址
-     */
-    public final static String FORTUNE_IMAGE_MODE = "static/image/fortune";
-
+    public final static String PCR_FILE_CARDPOOL_MODE = "static/files/pcr/cardpool";
     /**
      * pcr卡池
      */
@@ -44,5 +23,43 @@ public class FilePathConstant {
      * bcr卡池
      */
     public final static String BL_CARD_POOL_PATH = PCR_FILE_CARDPOOL_MODE + "/blcardpool.json";
+    /**
+     * 猫罗牌文案
+     */
+    public final static String CATROT_FILE_MODE = "static/files/catrot/catrot";
+    /**
+     * setu文件夹
+     */
+    public final static String SETU_FILE_MODE = "static/files/setu";
+    /**
+     * mzitu url文件
+     */
+    public final static String MZITU_FILE_MODE = SETU_FILE_MODE+ "/mzitu";
+
+
+    /*  ------ image ------  */
+    public final static String PCR_IMAGE_MODE = "static/image/pcr";
+    /**
+     * 十连小头像
+     */
+    public final static String PCR_AVATAR_TINY_IMAGE_MODE = PCR_IMAGE_MODE + "/avatar/tiny";
+    /**
+     * 单抽小头像
+     */
+    public final static String PCR_AVATAR_SMALL_IMAGE_MODE = PCR_IMAGE_MODE + "/avatar/small";
+    /**
+     * 未用
+     */
+    public final static String PCR_AVATAR_MEDIUM_IMAGE_MODE = PCR_IMAGE_MODE + "/avatar/medium";
+    /**
+     * 猫罗牌模块地址
+     */
+    public final static String CATROT_IMAGE_MODE = "static/image/catrot";
+    /**
+     * 每日卜卦模块地址
+     */
+    public final static String FORTUNE_IMAGE_MODE = "static/image/fortune";
+
+
 
 }

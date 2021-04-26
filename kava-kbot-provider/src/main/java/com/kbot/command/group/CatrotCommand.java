@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.kbot.config.BotContainer;
 import com.kbot.constant.FilePathConstant;
 import com.kbot.entity.CommandProperties;
-import com.kbot.entity.tarot.TarotInfo;
+import com.kbot.entity.TarotInfo;
 import com.kbot.service.ImageService;
 import com.kbot.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;

@@ -8,7 +8,7 @@ import com.kbot.constant.FilePathConstant;
 import com.kbot.constant.pcr.PrincessStar;
 import com.kbot.dto.pcr.PrincessDto;
 import com.kbot.entity.CommandProperties;
-import com.kbot.entity.pcr.CardPool;
+import com.kbot.entity.CardPool;
 import com.kbot.service.CommandHandleService;
 import com.kbot.service.ImageService;
 import com.kbot.utils.FileUtil;

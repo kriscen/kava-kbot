@@ -3,7 +3,7 @@ package com.kbot.runner;
 
 import com.kbot.config.BotContainer;
 import com.kbot.constant.FilePathConstant;
-import com.kbot.entity.tarot.TarotInfo;
+import com.kbot.entity.TarotInfo;
 import com.kbot.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class FileLoadRunner implements ApplicationRunner {
      */
     private void catrotLoad(){
         List<TarotInfo> list = botContainer.getCatrotTextList();
-        File tarotFile = new File(FileUtil.getFilePath(FilePathConstant.CATROT_FILE_MODE + "/catrot"));
+        File tarotFile = new File(FileUtil.getFilePath(FilePathConstant.CATROT_FILE_MODE));
         //创建读取器
         BufferedReader reader;
         try {
@@ -62,7 +62,6 @@ public class FileLoadRunner implements ApplicationRunner {
                 if (freeTimeStr.length() <= 0){
                     continue;
                 }
-                System.out.println(freeTimeStr);
                 TarotInfo positiveInfo = new TarotInfo();
                 TarotInfo negativeInfo = new TarotInfo();
                 //首先是图片名称
@@ -70,12 +69,10 @@ public class FileLoadRunner implements ApplicationRunner {
                 negativeInfo.setImgName(freeTimeStr);
                 //再往下读一行，是卡牌名称
                 freeTimeStr = reader.readLine();
-                System.out.println(freeTimeStr);
                 positiveInfo.setName(freeTimeStr);
                 negativeInfo.setName(freeTimeStr);
                 //再往下读一行，是正位描述
                 freeTimeStr = reader.readLine();
-                System.out.println(freeTimeStr);
                 freeTimeStr = freeTimeStr.substring(freeTimeStr.indexOf("：") + 1);
                 positiveInfo.setNormalDes(freeTimeStr);
                 positiveInfo.setStatus(true);

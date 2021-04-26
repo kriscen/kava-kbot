@@ -1,11 +1,10 @@
 package com.kbot.config;
 
-import com.kbot.command.BaseCommand;
 import com.kbot.command.everywhere.EverywhereCommand;
 import com.kbot.command.friend.FriendCommand;
 import com.kbot.command.group.GroupCommand;
 import com.kbot.command.grouptempmessage.GroupTempMessageCommand;
-import com.kbot.entity.tarot.TarotInfo;
+import com.kbot.entity.TarotInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
