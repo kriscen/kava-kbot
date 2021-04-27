@@ -34,10 +34,10 @@ public class GlobalEventHandleServiceImpl implements GlobalEventHandleService {
 
     @Override
     public void execute(User sender, String args, MessageChain messageChain, Contact subject) {
-        repeat(args,subject);
+        repeat(args,messageChain,subject);
     }
 
-    private void repeat(String args, Contact subject){
+    private void repeat(String args, MessageChain messageChain,Contact subject){
         //初始概率
         int initProb = 2;
         GroupRepeat repeat = botContainer.getRepeatGroup().get(subject.getId());
@@ -57,7 +57,7 @@ public class GlobalEventHandleServiceImpl implements GlobalEventHandleService {
         if(i<prob){
             repeat.setTimes(1);
             botContainer.getRepeatGroup().put(subject.getId(),repeat);
-            subject.sendMessage(MessageUtils.newChain().plus(args));
+            subject.sendMessage(messageChain);
         }
     }
 
