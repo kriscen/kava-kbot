@@ -55,6 +55,8 @@ public class GlobalEventHandleServiceImpl implements GlobalEventHandleService {
         int prob = getRepeatProb(repeat.getTimes(), initProb);
         int i = new Random().nextInt(repeatProb);
         if(i<prob){
+            repeat.setTimes(1);
+            botContainer.getRepeatGroup().put(subject.getId(),repeat);
             subject.sendMessage(MessageUtils.newChain().plus(args));
         }
     }

@@ -79,14 +79,14 @@ public class SetuCommand implements GroupCommand {
 
     @Override
     public Message execute(User sender, String args, MessageChain messageChain, Contact subject) {
-        Long aLong = botContainer.getImageCooling().get(subject.getId());
-        if(aLong != null && System.currentTimeMillis() < aLong+coolTime){
-            ArrayList<String> list = Lists.newArrayList("冲太多了，歇一会吧。", "注意身体。", "小撸怡情，大撸伤身，强撸灰飞烟灭。", "冷却中。。。剩余时间"+(aLong+coolTime - System.currentTimeMillis())/1000 + "s");
-            return MessageUtils.newChain().plus(list.get(new Random().nextInt(list.size())));
-        }
         String mode = getMode(commandHandleService.getContent(args));
         switch(mode){
             case GIRL_MODE:
+                Long aLong = botContainer.getImageCooling().get(subject.getId());
+                if(aLong != null && System.currentTimeMillis() < aLong+coolTime){
+                    ArrayList<String> list = Lists.newArrayList("冲太多了，歇一会吧。", "注意身体。", "小撸怡情，大撸伤身，强撸灰飞烟灭。", "冷却中。。。剩余时间"+(aLong+coolTime - System.currentTimeMillis())/1000 + "s");
+                    return MessageUtils.newChain().plus(list.get(new Random().nextInt(list.size())));
+                }
                 Message mode1 = girlMode(subject);
                 botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
                 return mode1;

@@ -62,12 +62,12 @@ public class MessageEvents extends SimpleListenerHost {
 
         //是否指令模式
         if (!commandHandleService.isCommand(oriMsg)) {
+            //触发全局动作
+            globalEventHandleService.execute(sender, oriMsg, event.getMessage(), event.getSubject());
             return ListeningStatus.LISTENING;
         }
         BaseCommand command = commandHandleService.getCommand(oriMsg, botContainer.getEverywhereCommands());
         if (command == null) {
-            //触发全局动作
-            globalEventHandleService.execute(sender, oriMsg, event.getMessage(), event.getSubject());
             return ListeningStatus.LISTENING;
         }
         //执行指令并回复结果
