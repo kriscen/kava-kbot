@@ -2,24 +2,22 @@ package com.kbot.command.group;
 
 import com.google.common.collect.Lists;
 import com.kbot.config.BotContainer;
-import com.kbot.constant.FilePathConstant;
 import com.kbot.entity.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.service.ImageService;
 import com.kbot.service.ShareApiService;
-import com.kbot.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
-import net.mamoe.mirai.message.data.*;
-import org.checkerframework.checker.units.qual.A;
+import net.mamoe.mirai.message.data.Message;
+import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.MessageUtils;
+import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -82,7 +80,7 @@ public class SetuCommand implements GroupCommand {
     @Override
     public Message execute(User sender, String args, MessageChain messageChain, Contact subject) {
         Long aLong = botContainer.getImageCooling().get(subject.getId());
-        if(System.currentTimeMillis() < aLong+coolTime){
+        if(aLong != null && System.currentTimeMillis() < aLong+coolTime){
             ArrayList<String> list = Lists.newArrayList("冲太多了，歇一会吧。", "注意身体。", "小撸怡情，大撸伤身，强撸灰飞烟灭。", "冷却中。。。剩余时间"+(aLong+coolTime - System.currentTimeMillis())/1000 + "s");
             return MessageUtils.newChain().plus(list.get(new Random().nextInt(list.size())));
         }
