@@ -56,7 +56,7 @@ public class SetuCommand implements GroupCommand {
     private final List<String> setuList = Lists.newArrayList("色图");
     private final List<String> greedyList = Lists.newArrayList("不够色","我觉得不行");
 
-    private final long coolTime = 3*60*1000;
+    private final long coolTime = 2*60*1000;
 
     @Autowired
     private ImageService imageService;
@@ -85,7 +85,7 @@ public class SetuCommand implements GroupCommand {
     @Override
     public Message execute(User sender, String args, MessageChain messageChain, Contact subject) {
         String mode = getMode(commandHandleService.getContent(args));
-        if(!GREEDY_MODE.equals(mode)){
+        if(GIRL_MODE.equals(mode) || ACG_MODE.equals(mode)){
             Long aLong = botContainer.getImageCooling().get(subject.getId());
             if(aLong != null && System.currentTimeMillis() < aLong+coolTime){
                 ArrayList<String> list = Lists.newArrayList("冲太多了，歇一会吧。", "注意身体。", "小撸怡情，大撸伤身，强撸灰飞烟灭。",
@@ -103,10 +103,6 @@ public class SetuCommand implements GroupCommand {
                 botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
                 return acgMode;
             case SETU_MODE:
-                Message setuMode = setuMode(subject);
-                botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
-                return setuMode;
-            case GREEDY_MODE:
                 return MessageUtils.newChain().plus("@黑宝 色图");
             default:
                 break;

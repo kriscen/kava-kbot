@@ -3,6 +3,7 @@ package com.kbot.service.impl;
 import com.kbot.service.ImageService;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.message.data.Image;
+import net.mamoe.mirai.utils.ExternalResource;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -31,13 +32,15 @@ public class ImageServiceImpl implements ImageService {
         byte[] bytes;
         Image image = null;
         InputStream is = null;
+        ExternalResource resource = null;
         try {
             CloseableHttpResponse response = client.execute(get);
             if (200 == response.getStatusLine().getStatusCode()) {
                 HttpEntity responseEntity = response.getEntity();
                 bytes = EntityUtils.toByteArray(responseEntity);
                 is = new ByteArrayInputStream(bytes);
-                image = Contact.uploadImage(sender,is);
+                resource = ExternalResource.create(is);
+                image = sender.uploadImage(resource);
             } else {
                 System.out.println("no pic");
             }
@@ -45,13 +48,17 @@ public class ImageServiceImpl implements ImageService {
             System.out.println("no pic");
         }finally {
             try {
-                client.close();
+                resource.close();
             } catch (IOException e) {
             }
             try {
                 is.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            try {
+                client.close();
+            } catch (IOException e) {
             }
         }
         return image;

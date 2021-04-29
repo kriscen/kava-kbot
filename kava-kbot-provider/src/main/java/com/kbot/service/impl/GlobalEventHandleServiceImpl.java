@@ -3,6 +3,7 @@ package com.kbot.service.impl;
 
 import com.alibaba.fastjson.util.IOUtils;
 import com.kbot.config.BotContainer;
+import com.kbot.constant.ShareApiConstant;
 import com.kbot.entity.GroupRepeat;
 import com.kbot.service.GlobalEventHandleService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,8 +42,9 @@ public class GlobalEventHandleServiceImpl implements GlobalEventHandleService {
 
     @Override
     public void execute(User sender, String args, MessageChain messageChain, Contact subject) {
+        //复读
         repeat(args,messageChain,subject);
-
+        //随机一句话
         randomWord(subject);
     }
 
@@ -60,7 +62,7 @@ public class GlobalEventHandleServiceImpl implements GlobalEventHandleService {
         int nextInt = new Random().nextInt(totalProb);
         if(nextInt<yiyuProb){
             CloseableHttpClient client = HttpClientBuilder.create().build();
-            HttpGet get = new HttpGet();
+            HttpGet get = new HttpGet(ShareApiConstant.TEN_YIYAN_URL);
             try {
                 CloseableHttpResponse response = client.execute(get);
                 if (200 == response.getStatusLine().getStatusCode()) {
