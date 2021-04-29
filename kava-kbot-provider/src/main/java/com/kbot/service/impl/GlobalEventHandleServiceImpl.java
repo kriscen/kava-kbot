@@ -1,6 +1,7 @@
 package com.kbot.service.impl;
 
 
+import com.alibaba.fastjson.util.IOUtils;
 import com.kbot.config.BotContainer;
 import com.kbot.entity.GroupRepeat;
 import com.kbot.service.GlobalEventHandleService;
@@ -9,6 +10,12 @@ import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.MessageUtils;
+import net.mamoe.mirai.message.data.PlainText;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +42,50 @@ public class GlobalEventHandleServiceImpl implements GlobalEventHandleService {
     @Override
     public void execute(User sender, String args, MessageChain messageChain, Contact subject) {
         repeat(args,messageChain,subject);
+
+        randomWord(subject);
     }
 
-    private void repeat(String args, MessageChain messageChain,Contact subject){
+    /**
+     * 随机一语
+     * @param subject 联系人
+     * @return 是否执行
+     */
+    private boolean randomWord(Contact subject){
+        //总概率
+        int totalProb = 100;
+        //触发概率线
+        int yiyuProb = 5;
+        //实际值
+        int nextInt = new Random().nextInt(totalProb);
+        if(nextInt<yiyuProb){
+            CloseableHttpClient client = HttpClientBuilder.create().build();
+            HttpGet get = new HttpGet();
+            try {
+                CloseableHttpResponse response = client.execute(get);
+                if (200 == response.getStatusLine().getStatusCode()) {
+                    String word = EntityUtils.toString(response.getEntity(), "UTF-8");
+                    subject.sendMessage(MessageUtils.newChain(new PlainText(word)));
+                    return true;
+                }
+            } catch (Exception e) {
+                return false;
+            }finally {
+                IOUtils.close(client);
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 复读
+     * @param args 参数
+     * @param messageChain 信息链
+     * @param subject 联系人
+     * @return 是否执行
+     */
+    private boolean repeat(String args, MessageChain messageChain,Contact subject){
         //初始概率
         int initProb = 2;
         GroupRepeat repeat = botContainer.getRepeatGroup().get(subject.getId());
@@ -58,7 +106,9 @@ public class GlobalEventHandleServiceImpl implements GlobalEventHandleService {
             repeat.setTimes(1);
             botContainer.getRepeatGroup().put(subject.getId(),repeat);
             subject.sendMessage(messageChain);
+            return true;
         }
+        return false;
     }
 
     private int getRepeatProb(int times,int initProb){

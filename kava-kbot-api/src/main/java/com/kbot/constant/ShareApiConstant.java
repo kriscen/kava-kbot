@@ -22,4 +22,17 @@ public class ShareApiConstant {
      * PC日历
      */
     public final static String BCR_CALENDAR_URL = "https://pcrbot.github.io/calendar-updater-action/cn.json";
+    /**
+     * https://moe.best/cross.html
+     * 二次元大佬
+     */
+    public final static String LOLICON_URL = "https://api.lolicon.app/setu";
+    /**
+     * doc:https://docs.tenapi.cn/
+     * 随机一言
+     */
+    public final static String TEN_YIYAN_URL = "https://tenapi.cn/yiyan/";
+
+
+
 }

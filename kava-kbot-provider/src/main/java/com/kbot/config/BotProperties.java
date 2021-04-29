@@ -42,4 +42,7 @@ public class BotProperties {
 
     @Value("${bot.commandPrefix}")
     private String commandPrefix;
+
+    @Value("${bot.loliconKey}")
+    private String loliconKey;
 }

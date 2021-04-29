@@ -5,14 +5,12 @@ import com.kbot.config.BotContainer;
 import com.kbot.entity.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.service.ImageService;
+import com.kbot.service.LoliconApiService;
 import com.kbot.service.ShareApiService;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
-import net.mamoe.mirai.message.data.Message;
-import net.mamoe.mirai.message.data.MessageChain;
-import net.mamoe.mirai.message.data.MessageUtils;
-import net.mamoe.mirai.message.data.PlainText;
+import net.mamoe.mirai.message.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +43,10 @@ public class SetuCommand implements GroupCommand {
      */
     private final String SETU_MODE = "setuMode";
     /**
+     * greedy
+     */
+    private final String GREEDY_MODE = "greedyMode";
+    /**
      * 错误
      */
     private final String ERR_MODE = "errMode";
@@ -52,8 +54,9 @@ public class SetuCommand implements GroupCommand {
     private final List<String> girlList = Lists.newArrayList("妹子");
     private final List<String> acgList = Lists.newArrayList("二次元");
     private final List<String> setuList = Lists.newArrayList("色图");
+    private final List<String> greedyList = Lists.newArrayList("不够色","我觉得不行");
 
-    private final long coolTime = 5*60*1000;
+    private final long coolTime = 3*60*1000;
 
     @Autowired
     private ImageService imageService;
@@ -63,6 +66,8 @@ public class SetuCommand implements GroupCommand {
     private ShareApiService gankApiService;
     @Autowired
     private BotContainer botContainer;
+    @Autowired
+    private LoliconApiService loliconApiService;
 
     @Override
     public CommandProperties properties() {
@@ -80,25 +85,42 @@ public class SetuCommand implements GroupCommand {
     @Override
     public Message execute(User sender, String args, MessageChain messageChain, Contact subject) {
         String mode = getMode(commandHandleService.getContent(args));
+        if(!GREEDY_MODE.equals(mode)){
+            Long aLong = botContainer.getImageCooling().get(subject.getId());
+            if(aLong != null && System.currentTimeMillis() < aLong+coolTime){
+                ArrayList<String> list = Lists.newArrayList("冲太多了，歇一会吧。", "注意身体。", "小撸怡情，大撸伤身，强撸灰飞烟灭。",
+                        "冷却中。。。剩余时间"+(aLong+coolTime - System.currentTimeMillis())/1000 + "s");
+                return MessageUtils.newChain().plus(list.get(new Random().nextInt(list.size())));
+            }
+        }
         switch(mode){
             case GIRL_MODE:
-                Long aLong = botContainer.getImageCooling().get(subject.getId());
-                if(aLong != null && System.currentTimeMillis() < aLong+coolTime){
-                    ArrayList<String> list = Lists.newArrayList("冲太多了，歇一会吧。", "注意身体。", "小撸怡情，大撸伤身，强撸灰飞烟灭。", "冷却中。。。剩余时间"+(aLong+coolTime - System.currentTimeMillis())/1000 + "s");
-                    return MessageUtils.newChain().plus(list.get(new Random().nextInt(list.size())));
-                }
                 Message mode1 = girlMode(subject);
                 botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
                 return mode1;
             case ACG_MODE:
-                return MessageUtils.newChain().plus("二次元妹子还在路上...");
+                Message acgMode = acgMode(subject);
+                botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
+                return acgMode;
             case SETU_MODE:
+                Message setuMode = setuMode(subject);
+                botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
+                return setuMode;
+            case GREEDY_MODE:
                 return MessageUtils.newChain().plus("@黑宝 色图");
             default:
                 break;
         }
         return MessageUtils.newChain()
                 .plus(new PlainText("ue 听不懂你在说什么(⊙_⊙)?"));
+    }
+
+    private Message setuMode(Contact subject) {
+        return MessageUtils.newChain(FlashImage.from(imageService.sendImage4Online(subject, loliconApiService.getLoliconImage(1, null))));
+    }
+
+    private Message acgMode(Contact subject) {
+        return MessageUtils.newChain(imageService.sendImage4Online(subject,loliconApiService.getLoliconImage(0,null)));
     }
 
     private Message girlMode(Contact subject){
@@ -117,6 +139,8 @@ public class SetuCommand implements GroupCommand {
             return ACG_MODE;
         }else if (setuList.contains(message)){
             return SETU_MODE;
+        }else if (greedyList.contains(message)){
+            return GREEDY_MODE;
         }
         return ERR_MODE;
     }

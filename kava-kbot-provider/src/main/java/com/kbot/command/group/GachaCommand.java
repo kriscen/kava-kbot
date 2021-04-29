@@ -1,16 +1,16 @@
-package com.kbot.command.group.pcr;
+package com.kbot.command.group;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
-import com.kbot.command.group.GroupCommand;
 import com.kbot.config.BotProperties;
 import com.kbot.constant.FilePathConstant;
 import com.kbot.constant.pcr.PrincessStar;
 import com.kbot.dto.pcr.PrincessDto;
-import com.kbot.entity.CommandProperties;
 import com.kbot.entity.CardPool;
+import com.kbot.entity.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.service.ImageService;
+import com.kbot.service.ShareApiService;
 import com.kbot.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Contact;
@@ -43,12 +43,14 @@ public class GachaCommand implements GroupCommand {
     private final String GACHA_TEN = "gachaTen";
     private final String GACHA_NESS = "gachaNess";
     private final String GACHA_WELL = "gachaWell";
-    private final String GACHA_Admin = "gachaAdmin";
+    private final String GACHA_ADMIN = "gachaAdmin";
+    private final String ACTIVITY_SEARCH = "activitySearch";
     private final List<String> ONE = Lists.newArrayList("单抽");
     private final List<String> NESS = Lists.newArrayList("必得");
     private final List<String> TEN = Lists.newArrayList("十连","来一发");
     private final List<String> WELL = Lists.newArrayList("来一井");
     private final List<String> ADMIN = Lists.newArrayList("刷新卡池");
+    private final List<String> ACTIVITY = Lists.newArrayList("查询活动");
 
     @Autowired
     private BotProperties botProperties;
@@ -58,6 +60,8 @@ public class GachaCommand implements GroupCommand {
     private CommandHandleService commandHandleService;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private ShareApiService bcrCalendarApiService;
 
     @Override
     public CommandProperties properties() {
@@ -67,6 +71,7 @@ public class GachaCommand implements GroupCommand {
         alias.addAll(NESS);
         alias.addAll(WELL);
         alias.addAll(ADMIN);
+        alias.addAll(ACTIVITY);
         return CommandProperties.builder()
                 .name("gacha")
                 .type(1)
@@ -86,14 +91,22 @@ public class GachaCommand implements GroupCommand {
                 return gachaTen(subject,sender,GACHA_NESS);
             case GACHA_WELL:
                 return gachaWell(sender);
-            case GACHA_Admin:
+            case GACHA_ADMIN:
                 return adminGacha(sender);
+            case ACTIVITY_SEARCH:
+                return activitySearch();
             default:
                 break;
         }
         return MessageUtils.newChain()
                 .plus(new PlainText("扭蛋机坏了┭┮﹏┭┮"))
                 .plus(new At(sender.getId()));
+    }
+
+    private Message activitySearch() {
+        String s = bcrCalendarApiService.extract();
+        return MessageUtils.newChain()
+                .plus(new PlainText(s));
     }
 
     private Message adminGacha(User sender){
@@ -377,8 +390,10 @@ public class GachaCommand implements GroupCommand {
             return GACHA_NESS;
         }else if(ONE.contains(message)){
             return GACHA_SINGLE;
+        }else if(ACTIVITY.contains(message)){
+            return ACTIVITY_SEARCH;
         }else {
-            return GACHA_Admin;
+            return GACHA_ADMIN;
         }
     }
 }
