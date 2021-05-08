@@ -36,7 +36,7 @@ public class FriendTestCommand implements FriendCommand {
     @Override
     public CommandProperties properties() {
         return CommandProperties.builder()
-                .name("测试")
+                .name("test")
                 .type(1)
                 .alias(Arrays.asList(VERSION,STRING_MODE,IMAGE_MODE))
                 .build();

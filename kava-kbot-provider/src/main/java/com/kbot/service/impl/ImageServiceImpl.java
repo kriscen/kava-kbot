@@ -66,18 +66,45 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image sendImage4Local(Contact sender,String path) {
+        ExternalResource resource = null;
+        Image image = null;
         File file = new  File(path);
-        return Contact.uploadImage(sender,file);
+        try {
+            resource = ExternalResource.create(file);
+            image = sender.uploadImage(resource);
+        }catch (Exception e){
+        }finally {
+            resource.getClosed();
+        }
+        return image;
     }
 
     @Override
     public Image sendImage4Local(Contact sender, File file) {
-        return Contact.uploadImage(sender,file);
+        ExternalResource resource = null;
+        Image image = null;
+        try {
+            resource = ExternalResource.create(file);
+            image = sender.uploadImage(resource);
+        }catch (Exception e){
+        }finally {
+            resource.getClosed();
+        }
+        return image;
     }
 
     @Override
     public Image sendImage4Local(Contact sender, InputStream is) {
-        return Contact.uploadImage(sender,is);
+        ExternalResource resource = null;
+        Image image = null;
+        try {
+            resource = ExternalResource.create(is);
+            image = sender.uploadImage(resource);
+        }catch (Exception e){
+        }finally {
+            resource.getClosed();
+        }
+        return image;
     }
 
     @Override

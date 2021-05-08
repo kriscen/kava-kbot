@@ -43,6 +43,7 @@ public class FortuneCommand implements GroupCommand {
         return CommandProperties.builder()
                 .name("fortune")
                 .type(1)
+                .desc("每日运势")
                 .alias(Lists.newArrayList("抽签","签到"))
                 .build();
     }

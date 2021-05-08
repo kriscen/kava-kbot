@@ -1,6 +1,5 @@
 package com.kbot.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -32,4 +31,9 @@ public class CommandProperties {
      * 指令别称
      */
     private List<String> alias;
+
+    /**
+     * 指令说明
+     */
+    private String desc;
 }

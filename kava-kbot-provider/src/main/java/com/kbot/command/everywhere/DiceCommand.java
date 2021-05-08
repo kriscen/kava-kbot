@@ -27,10 +27,13 @@ public class DiceCommand implements EverywhereCommand{
 
     @Override
     public CommandProperties properties() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("投骰子。示例:18 一个18面骰子,d2r18 2个18面骰子");
         return CommandProperties.builder()
                 .name("dice")
                 .type(1)
                 .alias(Lists.newArrayList(ROLL))
+                .desc(sb.toString())
                 .build();
     }
 

@@ -75,6 +75,7 @@ public class GachaCommand implements GroupCommand {
         return CommandProperties.builder()
                 .name("gacha")
                 .type(1)
+                .desc("pcr相关命令")
                 .alias(alias)
                 .build();
     }

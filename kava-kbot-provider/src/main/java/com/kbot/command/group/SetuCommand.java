@@ -78,6 +78,7 @@ public class SetuCommand implements GroupCommand {
         return CommandProperties.builder()
                 .name("girl")
                 .type(1)
+                .desc("setu相关")
                 .alias(Lists.newArrayList(alias))
                 .build();
     }

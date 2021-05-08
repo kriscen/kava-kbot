@@ -41,6 +41,7 @@ public class CatrotCommand implements GroupCommand {
         return CommandProperties.builder()
                 .name("catrot")
                 .type(1)
+                .desc("随机一张猫罗牌")
                 .alias(Lists.newArrayList("来一张猫罗牌","猫罗牌"))
                 .build();
     }
