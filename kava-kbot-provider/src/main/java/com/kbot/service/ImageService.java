@@ -49,6 +49,13 @@ public interface ImageService {
      * @return image
      */
     Image sendImage4Local(Contact sender, InputStream is);
+    /**
+     * 从本地发送图片
+     * @param sender 用于转换图片
+     * @param bytes 二进制文件
+     * @return image
+     */
+    Image sendImage4Local(Contact sender, byte[] bytes);
 
     /**
      * 将网络图片下载到本地

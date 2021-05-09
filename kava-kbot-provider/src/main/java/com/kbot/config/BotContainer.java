@@ -84,4 +84,8 @@ public class BotContainer {
      * 图片冷却时间
      */
     private Map<Long,Long> imageCooling;
+    /**
+     * 图片冷却时间
+     */
+    private Map<Long,Long> catCooling;
 }

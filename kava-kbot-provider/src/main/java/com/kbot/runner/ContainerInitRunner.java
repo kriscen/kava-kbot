@@ -61,6 +61,7 @@ public class ContainerInitRunner implements ApplicationRunner {
         botContainer.setCatrotTextList(Lists.newArrayList());
         botContainer.setRepeatGroup(Maps.newHashMap());
         botContainer.setImageCooling(Maps.newHashMap());
+        botContainer.setCatCooling(Maps.newHashMap());
     }
 
     private Set<String> getCommandHead(){

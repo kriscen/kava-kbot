@@ -108,6 +108,30 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public Image sendImage4Local(Contact sender, byte[] bytes) {
+        Image image = null;
+        InputStream is = null;
+        ExternalResource resource = null;
+        try {
+            is = new ByteArrayInputStream(bytes);
+            resource = ExternalResource.create(is);
+            image = sender.uploadImage(resource);
+        } catch (Exception e) {
+        }finally {
+            try {
+                resource.close();
+            } catch (IOException e) {
+            }
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return image;
+    }
+
+    @Override
     public void downloadImage(String url, String path) {
         CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpGet get = new HttpGet(url);

@@ -24,12 +24,12 @@ public class ShareApiTest {
     private ShareApiService bcrCalendarApiService;
 
     @Test
-    public void bcrTest(){
+    public void bcrTest() {
         System.out.println(bcrCalendarApiService.extract());
     }
 
     @Test
-    public void yiyanTest(){
+    public void yiyanTest() {
         CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpGet get = new HttpGet(ShareApiConstant.TEN_YIYAN_URL);
         try {
@@ -39,13 +39,13 @@ public class ShareApiTest {
                 System.out.println(word);
             }
         } catch (Exception e) {
-        }finally {
+        } finally {
             IOUtils.close(client);
         }
     }
 
     @Test
-    public void gankTest(){
+    public void gankTest() {
         CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpGet get = new HttpGet(ShareApiConstant.GANK_URL);
         try {
@@ -59,7 +59,25 @@ public class ShareApiTest {
             }
         } catch (Exception e) {
             System.out.println("no pic");
-        }finally {
+        } finally {
+            IOUtils.close(client);
+        }
+    }
+
+    @Test
+    public void CatTest() {
+        CloseableHttpClient client = HttpClientBuilder.create().build();
+        HttpGet get = new HttpGet(ShareApiConstant.CAT_URL);
+        try {
+            CloseableHttpResponse response = client.execute(get);
+            if (200 == response.getStatusLine().getStatusCode()) {
+                byte[] bytes = EntityUtils.toByteArray(response.getEntity());
+            } else {
+                System.out.println("no pic");
+            }
+        } catch (Exception e) {
+            System.out.println("no pic");
+        } finally {
             IOUtils.close(client);
         }
     }

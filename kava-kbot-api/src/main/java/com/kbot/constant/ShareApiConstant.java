@@ -32,7 +32,11 @@ public class ShareApiConstant {
      * 随机一言
      */
     public final static String TEN_YIYAN_URL = "https://tenapi.cn/yiyan/";
-
+    /**
+     * http://edgecats.net/
+     * 随机猫猫gift
+     */
+    public final static String CAT_URL = "http://edgecats.net/";
 
 
 }
