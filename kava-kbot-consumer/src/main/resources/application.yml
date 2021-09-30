@@ -1,2 +1,5 @@
 server:
   port: 8117
+spring:
+  main:
+    web-application-type: none
