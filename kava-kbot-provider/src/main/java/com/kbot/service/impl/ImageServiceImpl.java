@@ -1,5 +1,6 @@
 package com.kbot.service.impl;
 
+import com.google.common.collect.Maps;
 import com.kbot.service.ImageService;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.message.data.Image;
@@ -7,12 +8,15 @@ import net.mamoe.mirai.utils.ExternalResource;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.io.*;
+import java.util.Map;
 
 /**
  * Program Name: kava-kbot
@@ -27,6 +31,11 @@ import java.io.*;
 public class ImageServiceImpl implements ImageService {
     @Override
     public Image sendImage4Online(Contact sender,String url) {
+        return sendImage4Online(sender,url, Maps.newHashMap());
+    }
+
+    @Override
+    public Image sendImage4Online(Contact sender, String url, Map<String,String> header) {
         CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpGet get = new HttpGet(url);
         byte[] bytes;
@@ -34,6 +43,7 @@ public class ImageServiceImpl implements ImageService {
         InputStream is = null;
         ExternalResource resource = null;
         try {
+            buildHeader(get,header);
             CloseableHttpResponse response = client.execute(get);
             if (200 == response.getStatusLine().getStatusCode()) {
                 HttpEntity responseEntity = response.getEntity();
@@ -178,5 +188,10 @@ public class ImageServiceImpl implements ImageService {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void buildHeader(HttpRequestBase request,Map<String, String> params){
+        if(CollectionUtils.isEmpty(params)){return;}
+        params.forEach(request::addHeader);
     }
 }

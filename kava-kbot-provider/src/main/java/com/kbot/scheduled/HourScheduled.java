@@ -1,6 +1,8 @@
 package com.kbot.scheduled;
 
+import com.google.common.collect.Maps;
 import com.kbot.config.BotContainer;
+import com.kbot.constant.ShareApiConstant;
 import com.kbot.service.ImageService;
 import com.kbot.service.ShareApiService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Map;
 
 /**
  * Program Name: kava-kbot
@@ -65,7 +68,9 @@ public class HourScheduled {
             //每天开始清除数据
             String url = dailyNewsApiService.extract();
             if(StringUtils.isNotEmpty(url)){
-                imageService.sendImage4Online(specificGroup(),url);
+                Map<String,String> params = Maps.newHashMap();
+                params.put("Referer", ShareApiConstant.DAILY_NEWS_REFERER);
+                imageService.sendImage4Online(specificGroup(),url,params);
             }
         }
     }

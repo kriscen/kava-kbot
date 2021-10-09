@@ -6,6 +6,7 @@ import net.mamoe.mirai.message.data.Image;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.Map;
 
 /**
  * Program Name: kava-kbot
@@ -25,6 +26,14 @@ public interface ImageService {
      * @return image
      */
     Image sendImage4Online(Contact sender,String url);
+
+    /**
+     * 根据图片地址得到image
+     * @param sender 用于转换图片
+     * @param url 网络图片地址
+     * @return image
+     */
+    Image sendImage4Online(Contact sender, String url, Map<String,String> header);
 
     /**
      * 从本地发送图片
