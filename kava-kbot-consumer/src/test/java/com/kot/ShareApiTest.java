@@ -16,17 +16,25 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = KbotApplication.class)
 public class ShareApiTest {
     @Autowired
     private ShareApiService bcrCalendarApiService;
+    @Autowired
+    private RestTemplate restTemplate;
+
 
     @Test
     public void bcrTest() {
-        System.out.println(bcrCalendarApiService.extract());
+        System.out.println(restTemplate);
     }
 
     @Test
@@ -45,6 +53,8 @@ public class ShareApiTest {
         } finally {
             IOUtils.close(client);
         }
+//        ResponseEntity<String> entity = restTemplate.getForEntity(ShareApiConstant.TEN_YIYAN_URL, String.class);
+//        System.out.println(entity.getStatusCode());
     }
 
 
