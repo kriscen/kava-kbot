@@ -64,4 +64,10 @@ public interface ImageService {
      */
     void downloadImage(String url,String path);
 
+    /**
+     * 将网络图片下载到本地
+     * @param bytes 二进制图片
+     * @param path 保存在本地的路径
+     */
+    void downloadImage(byte[] bytes,String path);
 }

@@ -37,6 +37,16 @@ public class ShareApiConstant {
      * 随机猫猫gift
      */
     public final static String CAT_URL = "http://edgecats.net/";
+    /**
+     * http://api.soyiji.com//news_jpg
+     * 每日新闻
+     */
+    public final static String DAILY_NEWS_URL = "http://api.soyiji.com//news_jpg";
+    /**
+     * safe.soyiji.com
+     * 每日新闻-referer
+     */
+    public final static String DAILY_NEWS_REFERER = "safe.soyiji.com";
 
 
 }

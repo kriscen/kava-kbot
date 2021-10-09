@@ -161,4 +161,22 @@ public class ImageServiceImpl implements ImageService {
             }
         }
     }
+
+    @Override
+    public void downloadImage(byte[] bytes, String path) {
+        FileOutputStream output = null;
+        try {
+            File storeFile = new File(path);
+            output = new FileOutputStream(storeFile);
+            output.write(bytes);
+        } catch (Exception e) {
+            System.out.println("no pic");
+        }finally {
+            try {
+                output.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

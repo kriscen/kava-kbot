@@ -57,13 +57,15 @@ public class GlobalEventHandleServiceImpl implements GlobalEventHandleService {
         //总概率
         int totalProb = 100;
         //触发概率线
-        int yiyuProb = 5;
+        int yiyuProb = 2;
         //实际值
         int nextInt = new Random().nextInt(totalProb);
         if(nextInt<yiyuProb){
             CloseableHttpClient client = HttpClientBuilder.create().build();
             HttpGet get = new HttpGet(ShareApiConstant.TEN_YIYAN_URL);
             try {
+                get.addHeader(":authority","tenapi.cn");
+                get.addHeader("user-agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36");
                 CloseableHttpResponse response = client.execute(get);
                 if (200 == response.getStatusLine().getStatusCode()) {
                     String word = EntityUtils.toString(response.getEntity(), "UTF-8");
