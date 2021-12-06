@@ -79,4 +79,11 @@ public interface ImageService {
      * @param path 保存在本地的路径
      */
     void downloadImage(byte[] bytes,String path);
+
+    /**
+     * 将网络图片下载到本地
+     * @param url 网络图片地址
+     * @param path 保存在本地的路径
+     */
+    void downloadImage(String url, String path, Map<String, String> header);
 }

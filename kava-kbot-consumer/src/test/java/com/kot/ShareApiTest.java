@@ -2,6 +2,7 @@ package com.kot;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.util.IOUtils;
+import com.google.common.collect.Maps;
 import com.kbot.KbotApplication;
 import com.kbot.constant.ShareApiConstant;
 import com.kbot.entity.shareApi.GankResult;
@@ -73,6 +74,9 @@ public class ShareApiTest {
                 Map<String,String> hashMap = JSON.parseObject(json, HashMap.class);
                 String url = hashMap.get("url");
                 System.out.println(url);
+                Map<String,String> params = Maps.newHashMap();
+                params.put("Referer", ShareApiConstant.DAILY_NEWS_REFERER);
+                imageService.downloadImage(url,"D:/images/1.jpg",params);
             }
         } catch (Exception e) {
         } finally {

@@ -1,9 +1,11 @@
 package com.kbot.command.friend;
 
-import com.kbot.constant.FilePathConstant;
+import com.google.common.collect.Maps;
+import com.kbot.constant.ShareApiConstant;
 import com.kbot.entity.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.service.ImageService;
+import com.kbot.service.ShareApiService;
 import com.kbot.utils.FileUtil;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * Program Name: kava-kbot
@@ -27,18 +30,21 @@ public class FriendTestCommand implements FriendCommand {
     private final String VERSION = "version";
     private final String STRING_MODE = "mode1";
     private final String IMAGE_MODE = "mode2";
+    private final String TEST_MODE = "mode3";
 
     @Autowired
     private ImageService imageService;
     @Autowired
     private CommandHandleService commandHandleService;
+    @Autowired
+    private ShareApiService dailyNewsApiService;
 
     @Override
     public CommandProperties properties() {
         return CommandProperties.builder()
                 .name("test")
                 .type(1)
-                .alias(Arrays.asList(VERSION,STRING_MODE,IMAGE_MODE))
+                .alias(Arrays.asList(VERSION,STRING_MODE,IMAGE_MODE,TEST_MODE))
                 .build();
     }
 
@@ -52,6 +58,8 @@ public class FriendTestCommand implements FriendCommand {
                 return testString(sender);
             case IMAGE_MODE:
                 return imageMode(sender);
+            case TEST_MODE:
+                return testMode(sender);
             default:
                 break;
         }
@@ -76,5 +84,13 @@ public class FriendTestCommand implements FriendCommand {
     private Image imageMode(User sender){
         String path = FileUtil.getFilePath("static/image/ue.jpg");
         return imageService.sendImage4Local(sender,path);
+    }
+
+    private Image testMode(User sender){
+        String url = dailyNewsApiService.extract();
+        System.out.println(url);
+        Map<String,String> params = Maps.newHashMap();
+        params.put("Referer", ShareApiConstant.DAILY_NEWS_REFERER);
+        return imageService.sendImage4Online(sender,url,params);
     }
 }

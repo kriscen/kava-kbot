@@ -47,6 +47,17 @@ public class ShareApiConstant {
      * 每日新闻-referer
      */
     public final static String DAILY_NEWS_REFERER = "safe.soyiji.com";
-
+    /**
+     * 随机壁纸API
+     */
+    public final static String IW233_RANDOM = "https://iw233.cn/API/Random.php";
+    /**
+     * 壁纸推荐API
+     */
+    public final static String IW233_MIRLKOI = "https://iw233.cn/API/MirlKoi.php";
+    /**
+     * 随机蛇图API
+     */
+    public final static String IW233_GHS = "https://iw233.cn/API/GHS.php";
 
 }

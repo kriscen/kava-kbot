@@ -143,10 +143,34 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void downloadImage(String url, String path) {
+        downloadImage(url,path,Maps.newHashMap());
+    }
+
+    @Override
+    public void downloadImage(byte[] bytes, String path) {
+        FileOutputStream output = null;
+        try {
+            File storeFile = new File(path);
+            output = new FileOutputStream(storeFile);
+            output.write(bytes);
+        } catch (Exception e) {
+            System.out.println("no pic");
+        }finally {
+            try {
+                output.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void downloadImage(String url, String path, Map<String, String> header) {
         CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpGet get = new HttpGet(url);
         FileOutputStream output = null;
         try {
+            buildHeader(get,header);
             CloseableHttpResponse response = client.execute(get);
             if (200 == response.getStatusLine().getStatusCode()) {
                 File storeFile = new File(path);
@@ -168,24 +192,6 @@ public class ImageServiceImpl implements ImageService {
             try {
                 client.close();
             } catch (IOException e) {
-            }
-        }
-    }
-
-    @Override
-    public void downloadImage(byte[] bytes, String path) {
-        FileOutputStream output = null;
-        try {
-            File storeFile = new File(path);
-            output = new FileOutputStream(storeFile);
-            output.write(bytes);
-        } catch (Exception e) {
-            System.out.println("no pic");
-        }finally {
-            try {
-                output.close();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }

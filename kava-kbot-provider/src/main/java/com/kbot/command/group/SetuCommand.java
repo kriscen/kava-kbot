@@ -2,11 +2,13 @@ package com.kbot.command.group;
 
 import com.google.common.collect.Lists;
 import com.kbot.config.BotContainer;
+import com.kbot.constant.ShareApiConstant;
 import com.kbot.entity.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.service.ImageService;
 import com.kbot.service.LoliconApiService;
 import com.kbot.service.ShareApiService;
+import com.kbot.utils.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
@@ -104,7 +106,9 @@ public class SetuCommand implements GroupCommand {
                 botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
                 return acgMode;
             case SETU_MODE:
-                return MessageUtils.newChain().plus("@黑宝 色图");
+                Message setuMode = setuMode(subject);
+                botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
+                return setuMode;
             default:
                 break;
         }
@@ -113,11 +117,13 @@ public class SetuCommand implements GroupCommand {
     }
 
     private Message setuMode(Contact subject) {
-        return MessageUtils.newChain(FlashImage.from(imageService.sendImage4Online(subject, loliconApiService.getLoliconImage(1, null))));
+        return MessageUtils.newChain(FlashImage.from(imageService.sendImage4Online(subject, ShareApiConstant.IW233_GHS)));
     }
 
     private Message acgMode(Contact subject) {
-        return MessageUtils.newChain(imageService.sendImage4Online(subject,loliconApiService.getLoliconImage(0,null)));
+        List<String> urlList = Lists.newArrayList(ShareApiConstant.IW233_RANDOM,
+                                            loliconApiService.getLoliconImage(0, null));
+        return MessageUtils.newChain(imageService.sendImage4Online(subject, RandomUtil.randomString(urlList)));
     }
 
     private Message girlMode(Contact subject){
