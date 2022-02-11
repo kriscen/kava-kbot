@@ -57,11 +57,11 @@ public class CatCommand implements GroupCommand {
     @Override
     public Message execute(User sender, String args, MessageChain messageChain, Contact subject) {
         Long aLong = botContainer.getCatCooling().get(subject.getId());
-        if(aLong != null && System.currentTimeMillis() < aLong+coolTime){
-            ArrayList<String> list = Lists.newArrayList("猫猫撸太多了，歇一会吧。", "少看点猫猫吧", "猫猫正在路上",
-                    "冷却中。。。剩余时间"+(aLong+coolTime - System.currentTimeMillis())/1000 + "s");
-            return MessageUtils.newChain().plus(list.get(new Random().nextInt(list.size())));
-        }
+//        if(aLong != null && System.currentTimeMillis() < aLong+coolTime){
+//            ArrayList<String> list = Lists.newArrayList("猫猫撸太多了，歇一会吧。", "少看点猫猫吧", "猫猫正在路上",
+//                    "冷却中。。。剩余时间"+(aLong+coolTime - System.currentTimeMillis())/1000 + "s");
+//            return MessageUtils.newChain().plus(list.get(new Random().nextInt(list.size())));
+//        }
         CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpGet get = new HttpGet(ShareApiConstant.CAT_URL);
         try {

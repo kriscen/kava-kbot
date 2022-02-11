@@ -16,8 +16,6 @@ import java.util.List;
 @Data
 public class LoliconResult {
     public Integer code;
-    public Integer quota;
-    public Integer quota_min_ttl;
     public Integer count;
     public String msg;
     private List<Lolicon> data;

@@ -88,14 +88,14 @@ public class SetuCommand implements GroupCommand {
     @Override
     public Message execute(User sender, String args, MessageChain messageChain, Contact subject) {
         String mode = getMode(commandHandleService.getContent(args));
-        if(GIRL_MODE.equals(mode) || ACG_MODE.equals(mode)){
-            Long aLong = botContainer.getImageCooling().get(subject.getId());
-            if(aLong != null && System.currentTimeMillis() < aLong+coolTime){
-                ArrayList<String> list = Lists.newArrayList("冲太多了，歇一会吧。", "注意身体。", "小撸怡情，大撸伤身，强撸灰飞烟灭。",
-                        "冷却中。。。剩余时间"+(aLong+coolTime - System.currentTimeMillis())/1000 + "s");
-                return MessageUtils.newChain().plus(list.get(new Random().nextInt(list.size())));
-            }
-        }
+//        if(GIRL_MODE.equals(mode) || ACG_MODE.equals(mode)){
+//            Long aLong = botContainer.getImageCooling().get(subject.getId());
+//            if(aLong != null && System.currentTimeMillis() < aLong+coolTime){
+//                ArrayList<String> list = Lists.newArrayList("冲太多了，歇一会吧。", "注意身体。", "小撸怡情，大撸伤身，强撸灰飞烟灭。",
+//                        "冷却中。。。剩余时间"+(aLong+coolTime - System.currentTimeMillis())/1000 + "s");
+//                return MessageUtils.newChain().plus(list.get(new Random().nextInt(list.size())));
+//            }
+//        }
         switch(mode){
             case GIRL_MODE:
                 Message mode1 = girlMode(subject);
@@ -117,13 +117,14 @@ public class SetuCommand implements GroupCommand {
     }
 
     private Message setuMode(Contact subject) {
-        return MessageUtils.newChain(FlashImage.from(imageService.sendImage4Online(subject, ShareApiConstant.IW233_GHS)));
+//        return MessageUtils.newChain(FlashImage.from(imageService.sendImage4Online(subject, ShareApiConstant.IW233_GHS)));
+        return MessageUtils.newChain(imageService.sendImage4Online(subject, ShareApiConstant.IW233_GHS));
     }
 
     private Message acgMode(Contact subject) {
-        List<String> urlList = Lists.newArrayList(ShareApiConstant.IW233_RANDOM,
-                                            loliconApiService.getLoliconImage(0, null));
-        return MessageUtils.newChain(imageService.sendImage4Online(subject, RandomUtil.randomString(urlList)));
+//        List<String> urlList = Lists.newArrayList(ShareApiConstant.IW233_RANDOM,
+//                                            loliconApiService.getLoliconImage(0, null));
+        return MessageUtils.newChain(imageService.sendImage4Online(subject, ShareApiConstant.IW233_RANDOM));
     }
 
     private Message girlMode(Contact subject){

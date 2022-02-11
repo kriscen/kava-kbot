@@ -65,12 +65,11 @@ public class HourScheduled {
     private void dailyNews(int hour){
         int workHour = 9;
         if(hour == workHour){
-            //每天开始清除数据
             String url = dailyNewsApiService.extract();
             if(StringUtils.isNotEmpty(url)){
                 Map<String,String> params = Maps.newHashMap();
                 params.put("Referer", ShareApiConstant.DAILY_NEWS_REFERER);
-                imageService.sendImage4Online(specificGroup(),url,params);
+                specificGroup().sendMessage(imageService.sendImage4Online(specificGroup(),url,params));
             }
         }
     }
