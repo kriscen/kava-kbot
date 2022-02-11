@@ -6,19 +6,19 @@ import com.kbot.constant.ShareApiConstant;
 import com.kbot.entity.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.service.ImageService;
-import com.kbot.service.LoliconApiService;
 import com.kbot.service.ShareApiService;
-import com.kbot.utils.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
-import net.mamoe.mirai.message.data.*;
+import net.mamoe.mirai.message.data.Message;
+import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.MessageUtils;
+import net.mamoe.mirai.message.data.PlainText;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Program Name: kava-kbot
@@ -53,7 +53,7 @@ public class SetuCommand implements GroupCommand {
      */
     private final String ERR_MODE = "errMode";
 
-    private final List<String> girlList = Lists.newArrayList("妹子");
+//    private final List<String> girlList = Lists.newArrayList("妹子");
     private final List<String> acgList = Lists.newArrayList("二次元");
     private final List<String> setuList = Lists.newArrayList("色图");
     private final List<String> greedyList = Lists.newArrayList("不够色","我觉得不行");
@@ -69,12 +69,12 @@ public class SetuCommand implements GroupCommand {
     @Autowired
     private BotContainer botContainer;
     @Autowired
-    private LoliconApiService loliconApiService;
+    private ShareApiService iw233GhsApiService;
 
     @Override
     public CommandProperties properties() {
         List<String> alias = Lists.newArrayList();
-        alias.addAll(girlList);
+//        alias.addAll(girlList);
         alias.addAll(acgList);
         alias.addAll(setuList);
         return CommandProperties.builder()
@@ -97,10 +97,10 @@ public class SetuCommand implements GroupCommand {
 //            }
 //        }
         switch(mode){
-            case GIRL_MODE:
-                Message mode1 = girlMode(subject);
-                botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
-                return mode1;
+//            case GIRL_MODE:
+//                Message mode1 = girlMode(subject);
+//                botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
+//                return mode1;
             case ACG_MODE:
                 Message acgMode = acgMode(subject);
                 botContainer.getImageCooling().put(subject.getId(),System.currentTimeMillis());
@@ -118,7 +118,13 @@ public class SetuCommand implements GroupCommand {
 
     private Message setuMode(Contact subject) {
 //        return MessageUtils.newChain(FlashImage.from(imageService.sendImage4Online(subject, ShareApiConstant.IW233_GHS)));
-        return MessageUtils.newChain(imageService.sendImage4Online(subject, ShareApiConstant.IW233_GHS));
+        String url = iw233GhsApiService.extract();
+        if(StringUtils.isNotEmpty(url)){
+            return MessageUtils.newChain(imageService.sendImage4Online(subject, url));
+        }else{
+            return MessageUtils.newChain()
+                    .plus(new PlainText("@黑豹 色图"));
+        }
     }
 
     private Message acgMode(Contact subject) {
@@ -137,9 +143,10 @@ public class SetuCommand implements GroupCommand {
      * @return mode
      */
     private String getMode(String message){
-        if(girlList.contains(message)){
-            return GIRL_MODE;
-        }else if(acgList.contains(message)){
+//        if(girlList.contains(message)){
+//            return GIRL_MODE;
+//        }else
+        if(acgList.contains(message)){
             return ACG_MODE;
         }else if (setuList.contains(message)){
             return SETU_MODE;
