@@ -3,8 +3,8 @@ package com.kbot.command.group;
 import com.alibaba.fastjson.util.IOUtils;
 import com.google.common.collect.Lists;
 import com.kbot.config.BotContainer;
-import com.kbot.constant.ShareApiConstant;
-import com.kbot.entity.CommandProperties;
+import com.kbot.shareApi.constant.ShareApiConstant;
+import com.kbot.command.CommandProperties;
 import com.kbot.service.ImageService;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Contact;
@@ -20,9 +20,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Program Name: kava-kbot

@@ -2,8 +2,8 @@ package com.kbot.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.util.IOUtils;
-import com.kbot.constant.ShareApiConstant;
-import com.kbot.entity.shareApi.GankResult;
+import com.kbot.shareApi.constant.ShareApiConstant;
+import com.kbot.shareApi.entity.GankResult;
 import com.kbot.service.ShareApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;

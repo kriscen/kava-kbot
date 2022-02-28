@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.util.IOUtils;
 import com.google.common.collect.Maps;
 import com.kbot.KbotApplication;
-import com.kbot.constant.ShareApiConstant;
-import com.kbot.entity.shareApi.GankResult;
+import com.kbot.shareApi.constant.ShareApiConstant;
+import com.kbot.shareApi.entity.GankResult;
 import com.kbot.service.ImageService;
 import com.kbot.service.ShareApiService;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -17,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 

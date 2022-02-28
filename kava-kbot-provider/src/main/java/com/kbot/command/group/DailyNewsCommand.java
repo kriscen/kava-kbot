@@ -2,9 +2,8 @@ package com.kbot.command.group;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.kbot.config.BotContainer;
-import com.kbot.constant.ShareApiConstant;
-import com.kbot.entity.CommandProperties;
+import com.kbot.shareApi.constant.ShareApiConstant;
+import com.kbot.command.CommandProperties;
 import com.kbot.service.ImageService;
 import com.kbot.service.ShareApiService;
 import net.mamoe.mirai.contact.Contact;

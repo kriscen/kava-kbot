@@ -2,7 +2,7 @@ package com.kbot.scheduled;
 
 import com.google.common.collect.Maps;
 import com.kbot.config.BotContainer;
-import com.kbot.constant.ShareApiConstant;
+import com.kbot.shareApi.constant.ShareApiConstant;
 import com.kbot.service.ImageService;
 import com.kbot.service.ShareApiService;
 import lombok.extern.slf4j.Slf4j;

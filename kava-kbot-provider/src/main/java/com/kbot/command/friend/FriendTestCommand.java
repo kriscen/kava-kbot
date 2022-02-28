@@ -1,8 +1,8 @@
 package com.kbot.command.friend;
 
 import com.google.common.collect.Maps;
-import com.kbot.constant.ShareApiConstant;
-import com.kbot.entity.CommandProperties;
+import com.kbot.shareApi.constant.ShareApiConstant;
+import com.kbot.command.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.service.ImageService;
 import com.kbot.service.ShareApiService;

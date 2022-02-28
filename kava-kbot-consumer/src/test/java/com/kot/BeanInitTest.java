@@ -4,7 +4,7 @@ import com.kbot.KbotApplication;
 import com.kbot.command.BaseCommand;
 import com.kbot.command.everywhere.EverywhereCommand;
 import com.kbot.config.BotContainer;
-import com.kbot.entity.CommandProperties;
+import com.kbot.command.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.utils.SpringContextUtil;
 import org.junit.Test;

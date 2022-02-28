@@ -1,7 +1,7 @@
 package com.kbot.runner;
 
 
-import com.kbot.entity.KrisBot;
+import com.kbot.bot.entity.KrisBot;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.Bot;
 import org.springframework.beans.factory.annotation.Autowired;

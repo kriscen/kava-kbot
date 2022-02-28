@@ -3,8 +3,8 @@ package com.kbot.service.impl;
 
 import com.alibaba.fastjson.util.IOUtils;
 import com.kbot.config.BotContainer;
-import com.kbot.constant.ShareApiConstant;
-import com.kbot.entity.GroupRepeat;
+import com.kbot.shareApi.constant.ShareApiConstant;
+import com.kbot.bot.entity.GroupRepeat;
 import com.kbot.service.GlobalEventHandleService;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Contact;

@@ -4,8 +4,8 @@ import com.kbot.KbotApplication;
 import com.kbot.command.BaseCommand;
 import com.kbot.command.everywhere.EverywhereCommand;
 import com.kbot.config.BotContainer;
-import com.kbot.constant.FilePathConstant;
-import com.kbot.entity.CommandProperties;
+import com.kbot.bot.constant.FilePathConstant;
+import com.kbot.command.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.utils.FileUtil;
 import com.kbot.utils.SpringContextUtil;
@@ -17,7 +17,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)

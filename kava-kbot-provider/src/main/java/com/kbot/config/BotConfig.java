@@ -1,6 +1,6 @@
 package com.kbot.config;
 
-import com.kbot.entity.KrisBot;
+import com.kbot.bot.entity.KrisBot;
 import com.kbot.event.GroupEvents;
 import com.kbot.event.MessageEvents;
 import com.kbot.utils.FileUtil;

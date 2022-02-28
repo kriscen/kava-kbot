@@ -1,6 +1,5 @@
 package com.kbot.command;
 
-import com.kbot.entity.CommandProperties;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;

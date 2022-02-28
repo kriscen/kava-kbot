@@ -1,11 +1,10 @@
 package com.kot;
 
 import com.kbot.KbotApplication;
-import com.kbot.constant.FilePathConstant;
+import com.kbot.bot.constant.FilePathConstant;
 import com.kbot.service.ImageService;
 import com.kbot.utils.FileUtil;
 import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.name.Rename;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

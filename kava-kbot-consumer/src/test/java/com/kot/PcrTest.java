@@ -3,7 +3,7 @@ package com.kot;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.kbot.KbotApplication;
-import com.kbot.entity.CardPool;
+import com.kbot.lottery.entity.CardPool;
 import com.kbot.service.CommandHandleService;
 import com.kbot.utils.FileUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;

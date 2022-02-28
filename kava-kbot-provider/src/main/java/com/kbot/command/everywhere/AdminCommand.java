@@ -2,7 +2,7 @@ package com.kbot.command.everywhere;
 
 import com.google.common.collect.Lists;
 import com.kbot.command.BaseCommand;
-import com.kbot.entity.CommandProperties;
+import com.kbot.command.CommandProperties;
 import com.kbot.utils.SpringContextUtil;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;

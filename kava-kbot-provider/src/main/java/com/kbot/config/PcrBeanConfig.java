@@ -1,9 +1,9 @@
 package com.kbot.config;
 
 import com.alibaba.fastjson.JSON;
-import com.kbot.constant.FilePathConstant;
-import com.kbot.entity.KrisBot;
-import com.kbot.entity.CardPool;
+import com.kbot.bot.constant.FilePathConstant;
+import com.kbot.bot.entity.KrisBot;
+import com.kbot.lottery.entity.CardPool;
 import com.kbot.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.Bot;

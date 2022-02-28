@@ -3,11 +3,11 @@ package com.kbot.command.group;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.kbot.config.BotProperties;
-import com.kbot.constant.FilePathConstant;
-import com.kbot.constant.pcr.PrincessStar;
-import com.kbot.dto.pcr.PrincessDto;
-import com.kbot.entity.CardPool;
-import com.kbot.entity.CommandProperties;
+import com.kbot.bot.constant.FilePathConstant;
+import com.kbot.lottery.constant.PrincessStar;
+import com.kbot.lottery.entity.PrincessDto;
+import com.kbot.lottery.entity.CardPool;
+import com.kbot.command.CommandProperties;
 import com.kbot.service.CommandHandleService;
 import com.kbot.service.ImageService;
 import com.kbot.service.ShareApiService;
@@ -142,7 +142,7 @@ public class GachaCommand implements GroupCommand {
         StringBuilder sb = new StringBuilder();
         sb.append(dto.getName());
         sb.append("(");
-        for (int j = 0; j < dto.getPrincessStar().getStarNUm(); j++) {
+        for (int j = 0; j < dto.getPrincessStar().getStarNum(); j++) {
             sb.append("✩");
         }
         sb.append(")");
@@ -168,7 +168,7 @@ public class GachaCommand implements GroupCommand {
         }
         List<Image> images = Lists.newArrayList();
         ten.forEach(t->{
-            if(t.getPrincessStar().getStarNUm() == 3){
+            if(t.getPrincessStar().getStarNum() == 3){
                 images.add(imageService.sendImage4Local(contact,t.getAvatarPath()));
             }
         });
@@ -177,7 +177,7 @@ public class GachaCommand implements GroupCommand {
         for (int i = 0; i < ten.size(); i++) {
             sb.append(ten.get(i).getName());
             sb.append("(");
-            for (int j = 0; j < ten.get(i).getPrincessStar().getStarNUm(); j++) {
+            for (int j = 0; j < ten.get(i).getPrincessStar().getStarNum(); j++) {
                 sb.append("✩");
             }
             sb.append(")");
@@ -292,7 +292,7 @@ public class GachaCommand implements GroupCommand {
         for (int i = 1; i <= normal; i++) {
             ten.add(gachaPrincess(GACHA_TEN));
         }
-        boolean indemnify = ten.stream().anyMatch(t -> t.getPrincessStar().getStarNUm() == 3);
+        boolean indemnify = ten.stream().anyMatch(t -> t.getPrincessStar().getStarNum() == 3);
         if(!indemnify){
             ten.add(indemnifyPrincessNess());
         }else{

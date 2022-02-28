@@ -1,18 +1,15 @@
 package com.kbot.command.group;
 
 import com.google.common.collect.Lists;
-import com.kbot.command.friend.FriendCommand;
-import com.kbot.command.group.GroupCommand;
 import com.kbot.config.BotContainer;
-import com.kbot.constant.FilePathConstant;
-import com.kbot.entity.CommandProperties;
+import com.kbot.bot.constant.FilePathConstant;
+import com.kbot.command.CommandProperties;
 import com.kbot.service.ImageService;
 import com.kbot.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.*;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
