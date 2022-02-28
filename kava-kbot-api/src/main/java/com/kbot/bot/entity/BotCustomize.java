@@ -1,6 +1,11 @@
 package com.kbot.bot.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.kbot.common.BaseEntity;
 import lombok.Data;
+import lombok.ToString;
+
+import java.io.Serializable;
 
 /**
  * Program Name:
@@ -12,11 +17,11 @@ import lombok.Data;
  * @author kris
  */
 @Data
-public class BotCustomize {
-    /**
-     * bot id
-     */
-    private Long botId;
+@ToString
+@TableName("bot_customize")
+public class BotCustomize extends BaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     /**
      * bot 简称
      */

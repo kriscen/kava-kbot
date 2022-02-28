@@ -18,7 +18,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication
 @EnableScheduling
-@MapperScan("com.kbot.mapper")
+@MapperScan("com.kbot.*.mapper")
 public class KbotApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args){
