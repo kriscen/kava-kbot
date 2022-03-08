@@ -1,4 +1,4 @@
-package com.kbot.lottery.entity;
+package com.kbot.lottery.entity.princess;
 
 import com.kbot.lottery.constant.PrincessStar;
 import lombok.Builder;

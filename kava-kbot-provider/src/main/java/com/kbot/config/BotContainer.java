@@ -5,7 +5,7 @@ import com.kbot.command.friend.FriendCommand;
 import com.kbot.command.group.GroupCommand;
 import com.kbot.command.grouptempmessage.GroupTempMessageCommand;
 import com.kbot.bot.entity.GroupRepeat;
-import com.kbot.lottery.entity.TarotInfo;
+import com.kbot.lottery.entity.tarot.TarotInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

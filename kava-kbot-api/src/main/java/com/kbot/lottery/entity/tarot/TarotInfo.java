@@ -1,4 +1,4 @@
-package com.kbot.lottery.entity;
+package com.kbot.lottery.entity.tarot;
 
 import lombok.Data;
 

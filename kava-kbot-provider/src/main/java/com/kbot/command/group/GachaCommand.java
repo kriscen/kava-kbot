@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import com.kbot.config.BotProperties;
 import com.kbot.bot.constant.FilePathConstant;
 import com.kbot.lottery.constant.PrincessStar;
-import com.kbot.lottery.entity.PrincessDto;
+import com.kbot.lottery.entity.princess.PrincessDto;
 import com.kbot.lottery.entity.CardPool;
 import com.kbot.command.CommandProperties;
 import com.kbot.service.CommandHandleService;

@@ -3,7 +3,7 @@ package com.kbot.bot.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.kbot.common.BaseEntity;
 import lombok.Data;
-import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -17,8 +17,8 @@ import java.io.Serializable;
  * @author kris
  */
 @Data
-@ToString
 @TableName("bot_customize")
+@EqualsAndHashCode(callSuper = true)
 public class BotCustomize extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
